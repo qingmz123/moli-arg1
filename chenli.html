@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>鲸落中学 · 优秀学生风采</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f3ef;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', serif;
+            padding: 20px;
+            color: #2c2c2c;
+            font-size: 16px;
+        }
+
+        .page-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fffef7;
+            border: 1px solid #e0ddd5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+
+        .school-header {
+            text-align: center;
+            border-bottom: 2px solid #d4cfc4;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .school-name {
+            font-size: 24px;
+            color: #4a6741;
+            letter-spacing: 2px;
+        }
+        .school-motto {
+            font-size: 12px;
+            color: #9aa8b3;
+            margin-top: 5px;
+        }
+
+        .student-name {
+            font-size: 28px;
+            font-weight: 400;
+            color: #3a5c4c;
+            margin-bottom: 8px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .student-class {
+            font-size: 14px;
+            color: #8a9b7a;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .student-desc {
+            font-size: 15px;
+            color: #5a6b5a;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .award-section {
+            margin-top: 25px;
+        }
+        .award-title {
+            font-size: 16px;
+            color: #4a6741;
+            border-left: 3px solid #8a9b7a;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+        .award-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .award-list li {
+            font-size: 14px;
+            color: #6a7a6a;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .award-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 6px;
+            height: 6px;
+            background: #c9d4c1;
+            border-radius: 50%;
+        }
+
+        .quote {
+            background: #faf8f3;
+            padding: 20px;
+            margin-top: 30px;
+            font-style: italic;
+            color: #8a9b7a;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #9aa8b3;
+            font-size: 13px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #8a9b7a;
+            text-decoration: underline;
+        }
+
+        /* 访问计数器样式 */
+        .visit-counter {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: #b0bec5;
+            background: rgba(255,255,255,0.8);
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        @keyframes subtleFlash {
+            0% { opacity: 0; }
+            100% { opacity: 0.3; background-color: #8b0000; }
+        }
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #8b0000;
+            pointer-events: none;
+            z-index: 9999;
+            animation: subtleFlash 0.15s ease-out;
+        }
+
+        @media (max-width: 600px) {
+            .page-container { padding: 20px; }
+            .student-name { font-size: 24px; }
+            .student-desc { font-size: 15px; }
+            .school-name { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <div class="school-header">
+        <div class="school-name">鲸落中学 · 优秀学生风采</div>
+        <div class="school-motto">立德 · 求真 · 笃行</div>
+    </div>
+
+    <div class="student-name">陈梨</div>
+    <div class="student-class">高三（7）班 · 2025届</div>
+    <div class="student-desc" id="studentDesc">
+        陈梨同学在校期间表现优异，学习成绩名列前茅，多次获得校级三好学生称号。
+        她热爱文学，擅长写作，曾在校刊发表多篇文章。性格温和，乐于助人，
+        深受老师和同学们的喜爱。
+    </div>
+
+    <div class="award-section">
+        <div class="award-title">主要荣誉</div>
+        <ul class="award-list" id="awardList">
+            <li>2023年 鲸落中学三好学生</li>
+            <li>2024年 市级作文竞赛二等奖</li>
+            <li>2024年 校茉莉花文学奖一等奖</li>
+            <li>2025年 校级优秀毕业生（提名）</li>
+        </ul>
+    </div>
+
+    <div class="quote" id="quote">
+        "如果可以，我希望我能帮助更多人，也希望更多人能把这份帮助传递下去！"<br>
+        —— 陈梨
+    </div>
+
+    <a href="#" id="backLink" class="back-link">← 返回上一页</a>
+</div>
+
+<!-- 访问计数器 -->
+<div id="visitCounter" class="visit-counter">加载中...</div>
+
+<script>
+    // 访问次数记录
+    let chenliVisit = localStorage.getItem('chenli_visit_count');
+    if (chenliVisit === null) {
+        chenliVisit = 1;
+    } else {
+        chenliVisit = parseInt(chenliVisit) + 1;
+    }
+    localStorage.setItem('chenli_visit_count', chenliVisit);
+    
+    // 显示访问次数
+    const counterDiv = document.getElementById('visitCounter');
+    if (counterDiv) {
+        counterDiv.innerHTML = `访问 ${chenliVisit}`;
+    }
+    
+    console.log(`[陈梨档案] 第${chenliVisit}次被查看`);
+    
+    // ========== 根据访问次数改变页面内容 ==========
+    
+    // 第二次访问：让一条荣誉消失 + 描述末尾加乱码
+    if (chenliVisit >= 2) {
+        const awardList = document.getElementById('awardList');
+        if (awardList && awardList.children.length >= 2) {
+            // 让第二条荣誉（市级作文竞赛二等奖）消失
+            awardList.children[1].style.display = 'none';
+            console.log("%c[档案] 一条记录消失了...", "color: #8b3a3a;");
+        }
+        
+        // 描述末尾添加乱码
+        const studentDesc = document.getElementById('studentDesc');
+        if (studentDesc && chenliVisit === 2) {
+            studentDesc.innerHTML = studentDesc.innerHTML + '<span style="color:#8b3a3a; font-family: monospace;"> 䥴䥵䥶䥷</span>';
+        }
+    }
+    
+    // 第三次访问：替换描述中的名字
+    if (chenliVisit >= 3) {
+        const studentDesc = document.getElementById('studentDesc');
+        if (studentDesc) {
+            studentDesc.innerHTML = studentDesc.innerHTML.replace('陈梨同学', '<span style="color:#8b3a3a;">�</span>同学');
+            console.log("%c[档案] 名字开始模糊...", "color: #aa4444;");
+        }
+    }
+    
+    // 第四次访问：让名字本身出现乱码
+    if (chenliVisit >= 4) {
+        const studentName = document.querySelector('.student-name');
+        if (studentName) {
+            studentName.innerHTML = '陈�';
+            studentName.style.color = '#8b3a3a';
+            console.log("%c[档案] 名字正在消失...", "color: #ff4444;");
+        }
+    }
+    
+    // 第五次及以上：语录模糊
+    if (chenliVisit >= 5) {
+        const quote = document.getElementById('quote');
+        if (quote) {
+            quote.style.opacity = '0.5';
+            quote.style.filter = 'blur(1px)';
+            console.log("%c[档案] 档案正在腐烂...", "color: #aa4444;");
+        }
+    }
+    
+    // 第十次及以上：红色闪屏 + 额外效果
+    if (chenliVisit >= 10) {
+        console.log("%c[档案] 你已经看了太多次了...", "color: #ff0000; font-size: 14px;");
+        setTimeout(() => {
+            const flash = document.createElement('div');
+            flash.className = 'flash-overlay';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 300);
+        }, 500);
+    }
+    
+    // 随机闪屏（保持恐怖谷氛围）
+    function randomFlash() {
+        if (chenliVisit >= 2 && Math.random() > 0.85) {
+            const flash = document.createElement('div');
+            flash.className = 'flash-overlay';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 150);
+        }
+    }
+    setInterval(randomFlash, 8000);
+    
+    // 返回上一页
+    document.getElementById('backLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.history.back();
+    });
+    
+    // 控制台隐藏信息
+    console.log("[鲸落中学档案] 陈梨 · 档案编号 JN-2025-007");
+    if (chenliVisit >= 2) {
+        console.log("%c[警告] 档案已损坏", "color: #8b3a3a;");
+    }
+</script>
+</body>
+</html>

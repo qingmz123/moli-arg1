@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>莫莉的私人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fffbe6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', serif;
+            padding: 20px;
+            color: #5a5a3a;
+            min-height: 100vh;
+            font-size: 16px;
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-header {
+            border-bottom: 1px solid #e8e0b0;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .blog-title {
+            font-size: 26px;
+        }
+        .blog-subtitle {
+            font-size: 12px;
+            color: #b0a87a;
+        }
+
+        .search-area {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1px solid #e0d6a0;
+            font-size: 16px;
+            font-family: monospace;
+            background: #fffcf0;
+            border-radius: 30px;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #8b6b4a;
+            box-shadow: 0 0 5px rgba(139,107,74,0.3);
+        }
+        .search-btn {
+            background: #e8e0b0;
+            border: none;
+            padding: 0 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-btn:hover {
+            background: #d8d0a0;
+        }
+
+        .search-results {
+            background: #fffcf0;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 10px;
+            display: none;
+            border: 1px solid #e8e0b0;
+        }
+        .search-result-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            background: #fffef7;
+            border-left: 3px solid #e0d6a0;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 14px;
+        }
+        .search-result-item:hover {
+            background: #f0ede5;
+            border-left-color: #8b6b4a;
+        }
+
+        .posts-list {
+            min-height: 400px;
+        }
+        .blog-post {
+            background: #fffcf0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e0d6a0;
+            transition: 0.2s;
+        }
+        .blog-post:hover {
+            background: #fefae8;
+        }
+        .post-date {
+            font-size: 12px;
+            color: #b0a87a;
+            margin-bottom: 8px;
+        }
+        .post-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #5a5a3a;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .post-title:hover {
+            color: #8b6b4a;
+            text-decoration: underline;
+        }
+        .post-preview {
+            font-size: 15px;
+            color: #8a7a5a;
+        }
+        .post-full {
+            font-size: 16px;
+            color: #5a5a3a;
+            line-height: 1.7;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            background: #e8e0b0;
+            border: none;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .page-btn:hover {
+            background: #d8d0a0;
+        }
+        .page-btn.active {
+            background: #c2b88a;
+            color: white;
+        }
+
+        .expand-more {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+        .expand-btn {
+            color: #b0a87a;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .expand-btn:hover {
+            color: #8b6b4a;
+        }
+
+        .toast-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #2a2a2a;
+            color: #e0d6a0;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-family: monospace;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+        .toast-popup.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @keyframes redFlash {
+            0% { opacity: 0; }
+            50% { opacity: 0.6; background-color: #8b0000; }
+            100% { opacity: 0; }
+        }
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #8b0000;
+            pointer-events: none;
+            z-index: 9999;
+            animation: redFlash 0.3s ease-out;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 15px; }
+            .blog-title { font-size: 22px; }
+            .post-title { font-size: 18px; }
+            .post-full { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blog-container">
+    <div class="blog-header">
+        <div>
+            <div class="blog-title">莫莉的私人手帐</div>
+            <div class="blog-subtitle">仅自己可见</div>
+        </div>
+    </div>
+
+    <div class="search-area">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索博文...">
+        <button id="searchBtn" class="search-btn">搜索</button>
+    </div>
+
+    <div id="searchResults" class="search-results"></div>
+    <div id="postsList" class="posts-list"></div>
+    <div id="pagination" class="pagination"></div>
+    <div class="expand-more">
+        <span id="expandMoreBtn" class="expand-btn">展开更多</span>
+    </div>
+</div>
+
+<script>
+    // 所有博文数据
+    // 注意：id=3（茉莉）和 id=7（陈梨）是隐藏博文，不在普通列表中显示
+    const allPosts = [
+        { id: 1, date: "2024.11.20", title: "回忆", preview: "我总是回忆着过去，麻木着现在，无法展望未来。", full: "我总是回忆着过去，麻木着现在，无法展望未来。那些逝去的日子像潮水一样涌来，裹挟着我无法呼吸。如果时间可以倒流，我会选择…不，没有如果。" },
+        { id: 2, date: "2024.11.28", title: "梦", preview: "做了一个很长很长的梦。醒来发现枕头是湿的。", full: "做了一个很长很长的梦。" },
+        { id: 3, date: "2024.12.01", title: "收藏夹 · 秘密链接", preview: "这里藏着一些我无法忘记的东西...", full: '茉莉花档案：<a href="#" id="jasmineLink" style="color:#8b6b4a; text-decoration:underline;">点击查看「关于茉莉花」</a>', hidden: true },
+        { id: 4, date: "2024.12.05", title: "秋天的落叶", preview: "今天在校园里捡到一片形状很特别的叶子...", full: "今天在校园里捡到一片形状很特别的叶子。把它夹在日记本里，就像把那个秋天永远留住。" },
+        { id: 5, date: "2024.12.08", title: "关于她", preview: "有些事我以为忘了，其实只是埋在更深的地方。", full: "有些事我以为忘了，其实只是埋在更深的地方。偶尔被翻出来，还是会疼。" },
+        { id: 6, date: "2024.12.12", title: "单曲循环", preview: "那首歌我已经听了376遍了。", full: "那首歌我已经听了376遍了。歌词里的每句话都像是写给我的。但我不知道该怎么回应。" },
+        { id: 7, date: "2024.12.15", title: "陈梨", preview: "鲸落中学优秀学生。", full: '没有人记得她。除了我。<br><br><a href="chenli.html" style="color:#8b6b4a; text-decoration:underline;">点击查看完整档案 →</a>', hidden: true }
+    ];
+
+    // 普通显示的博文（排除 hidden: true 的）
+    const visiblePosts = allPosts.filter(p => !p.hidden);
+
+    let currentPage = 1;
+    const itemsPerPage = 3;
+    let currentSearchMode = false;
+    let searchResultsIds = [];
+
+    function showToast(msg, duration = 2500) {
+        let toast = document.querySelector('.toast-popup');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'toast-popup';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), duration);
+    }
+
+    function doFlash() {
+        const flash = document.createElement('div');
+        flash.className = 'flash-overlay';
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 300);
+    }
+
+    function renderPosts(ids, page = 1) {
+        const start = (page - 1) * itemsPerPage;
+        const paginatedIds = ids.slice(start, start + itemsPerPage);
+        const container = document.getElementById('postsList');
+        
+        if (!paginatedIds.length) {
+            container.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px;">没有更多内容了</div>';
+            return;
+        }
+
+        container.innerHTML = paginatedIds.map(id => {
+            const post = allPosts.find(p => p.id === id);
+            if (!post) return '';
+            return `
+                <div class="blog-post" data-id="${post.id}">
+                    <div class="post-date">${post.date}</div>
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-preview">${post.preview}</div>
+                    <div class="post-full">${post.full}</div>
+                </div>
+            `;
+        }).join('');
+
+        // 绑定点击标题展开/收起
+        document.querySelectorAll('.blog-post').forEach(post => {
+            const preview = post.querySelector('.post-preview');
+            const full = post.querySelector('.post-full');
+            const title = post.querySelector('.post-title');
+            
+            title.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (full.style.display === 'none' || !full.style.display) {
+                    full.style.display = 'block';
+                    preview.style.display = 'none';
+                } else {
+                    full.style.display = 'none';
+                    preview.style.display = 'block';
+                }
+            });
+        });
+
+        // 特殊处理茉莉花链接
+        const jasmineLink = document.getElementById('jasmineLink');
+        if (jasmineLink) {
+            jasmineLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = "jasmine.html";
+            });
+        }
+
+        renderPagination(ids.length, page);
+    }
+
+    function renderPagination(totalItems, current) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const container = document.getElementById('pagination');
+        if (totalPages <= 1) { container.innerHTML = ''; return; }
+        let html = '';
+        for (let i = 1; i <= totalPages; i++) {
+            html += `<button class="page-btn ${i === current ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        }
+        container.innerHTML = html;
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = parseInt(btn.dataset.page);
+                currentPage = page;
+                if (currentSearchMode) {
+                    renderPosts(searchResultsIds, currentPage);
+                } else {
+                    renderPosts(visiblePosts.map(p => p.id), currentPage);
+                }
+            });
+        });
+    }
+
+    function performSearch(keyword) {
+        const kw = keyword.trim().toLowerCase();
+        const resultsDiv = document.getElementById('searchResults');
+        
+        if (kw === '') {
+            currentSearchMode = false;
+            currentPage = 1;
+            resultsDiv.style.display = 'none';
+            renderPosts(visiblePosts.map(p => p.id), 1);
+            return;
+        }
+
+        // 茉莉：只显示隐藏的 id=3 博文
+        if (kw.includes('茉莉')) {
+            const matched = allPosts.filter(p => p.id === 3);
+            showMatchedResults(matched, resultsDiv);
+            return;
+        }
+
+        // 陈梨：只显示隐藏的 id=7 博文
+        if (kw.includes('陈梨')) {
+            const matched = allPosts.filter(p => p.id === 7);
+            showMatchedResults(matched, resultsDiv);
+            return;
+        }
+
+        // 莫莉：闪屏 + 失败提示
+        if (kw.includes('莫莉')) {
+            doFlash();
+            setTimeout(() => showToast('搜索失败，请检查你的网络设置', 2500), 300);
+            return;
+        }
+
+        // 普通搜索（只在可见博文中搜索）
+        const matched = visiblePosts.filter(p => 
+            p.title.toLowerCase().includes(kw) || 
+            p.preview.toLowerCase().includes(kw)
+        );
+
+        if (matched.length === 0) {
+            showToast('没有搜索相关，试试换个关键词？', 2000);
+            resultsDiv.innerHTML = '<div style="padding:12px;text-align:center;color:#aaa;">没有找到相关博文</div>';
+            resultsDiv.style.display = 'block';
+            currentSearchMode = false;
+            currentPage = 1;
+            renderPosts(visiblePosts.map(p => p.id), 1);
+            return;
+        }
+
+        showMatchedResults(matched, resultsDiv);
+    }
+
+    function showMatchedResults(matched, resultsDiv) {
+        resultsDiv.innerHTML = matched.map(p => `
+            <div class="search-result-item" data-id="${p.id}">
+                ${p.title} — ${p.preview.substring(0, 50)}...
+            </div>
+        `).join('');
+        resultsDiv.style.display = 'block';
+
+        document.querySelectorAll('.search-result-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const id = parseInt(el.dataset.id);
+                currentSearchMode = true;
+                searchResultsIds = [id];
+                currentPage = 1;
+                renderPosts(searchResultsIds, 1);
+                resultsDiv.style.display = 'none';
+                document.getElementById('searchInput').value = '';
+            });
+        });
+
+        currentSearchMode = true;
+        searchResultsIds = matched.map(p => p.id);
+        currentPage = 1;
+        renderPosts(searchResultsIds, 1);
+    }
+
+    document.getElementById('expandMoreBtn').addEventListener('click', () => {
+        showToast('内容过多，不如试试使用搜索……？', 2500);
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+        performSearch(document.getElementById('searchInput').value);
+    });
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') performSearch(e.target.value);
+    });
+
+    // 初始化显示可见博文（隐藏的不显示）
+    renderPosts(visiblePosts.map(p => p.id), 1);
+</script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>关于茉莉花</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <style>
         * {
             margin: 0;
@@ -16,7 +17,6 @@
             color: #1a1a1a;
             line-height: 1.85;
             padding: 48px 20px;
-            position: relative;
         }
 
         .container {
@@ -68,7 +68,7 @@
             font-style: italic;
         }
 
-        /* 密钥样式 */
+        /* 密钥样式：白色隐藏 */
         .key {
             color: #ffffff;
             background: #ffffff;
@@ -84,28 +84,6 @@
         .key::selection {
             background: #ffe0e0;
             color: #8b3a3a;
-        }
-
-        /* 动态乱码姓名 */
-        .cursed-name {
-            cursor: crosshair;
-            transition: all 0.05s ease;
-            display: inline-block;
-        }
-
-        .cursed-name:hover {
-            font-family: 'Courier New', monospace;
-            letter-spacing: -1px;
-            color: #8b3a3a;
-        }
-
-        /* 闪烁文字 */
-        @keyframes subtleBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; color: #9aa8b3; }
-        }
-        .blink-text {
-            animation: subtleBlink 2s infinite;
         }
 
         /* 弹窗样式 */
@@ -189,101 +167,92 @@
             border-top: 1px solid #eef2f5;
         }
 
-        /* 假下载条 */
-        .fake-download {
+        /* 访问计数器样式 */
+        .visit-counter {
             position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 8px 12px;
+            bottom: 10px;
+            left: 10px;
             font-size: 11px;
-            font-family: monospace;
-            color: #555;
+            color: #b0bec5;
+            background: rgba(255,255,255,0.8);
+            padding: 4px 10px;
+            border-radius: 20px;
             z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            transition: all 0.3s;
         }
 
-        /* 鼠标拖尾痕迹 */
-        .trail {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: #8b3a3a;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.2s;
+        @media (max-width: 600px) {
+            body { padding: 30px 16px; }
+            .blog-title { font-size: 24px; }
+            .content p { font-size: 15px; }
+            .popup { width: 260px; padding: 16px 20px; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="blog-title">关于茉莉花</div>
     <div class="blog-meta">2024年11月16日 / 植物观察日记 / 第 3 篇</div>
 
     <div class="content">
-        <p>茉莉花，木犀科素馨属直立或攀援灌木，原产于印度、阿拉伯一带，后传入中国。它的花期集中在夏秋两季，花朵洁白无瑕，香气清幽绵长。古人称茉莉为“暗麝”，因其香气在夜晚更为浓郁，仿佛有人将麝香藏在了花瓣里。</p>
+        <p>茉莉花，木犀科素馨属直立或攀援灌木，原产于印度、阿拉伯一带，后传入中国。它的花期集中在夏秋两季，花朵洁白无瑕，香气清幽绵长。古人称茉莉为"暗麝"，因其香气在夜晚更为浓郁，仿佛有人将麝香藏在了花瓣里。</p>
 
-        <p>茉莉花的花语是忠贞、尊敬、清纯、贞洁、质朴、玲珑、迷人。<span class="key blink-text">ml</span></p>
+        <p>茉莉花的花语是忠贞、尊敬、清纯、贞洁、质朴、玲珑、迷人。<span class="key">ml</span></p>
 
-        <p>茉莉花的颜色并不复杂，常见的是白色茉莉花，紫色的较少见，还有会开两种颜色的花的鸳鸯茉莉（也叫双色茉莉）。<span class="key">k7</span>白色茉莉花的花语是亲切、喜爱感官感受。紫色茉莉花的花语是猜忌、成熟美、胆小、臆测。鸳鸯茉莉的花语是爱我，见异思迁，这是由于鸳鸯茉莉是由一条枝上长出<span class="key">3j</span>一朵白色一朵紫色系的茉莉而得名，因而它的花语蕴含着“见异思迁”的寓意。</p>
+        <p>茉莉花的颜色并不复杂，常见的是白色茉莉花，紫色的较少见，还有会开两种颜色的花的鸳鸯茉莉（也叫双色茉莉）。<span class="key">k7</span>白色茉莉花的花语是亲切、喜爱感官感受。紫色茉莉花的花语是猜忌、成熟美、胆小、臆测。鸳鸯茉莉的花语是爱我，见异思迁，这是由于鸳鸯茉莉是由一条枝上长出<span class="key">3j</span>一朵白色一朵紫色系的茉莉而得名，因而它的花语蕴含着"见异思迁"的寓意。</p>
 
         <h3>茉莉花的栽培历史</h3>
-        <p>茉莉花在西汉时期经由丝绸之路传入中国，最早种植于南方沿海地区。宋代以后，茉莉花的栽培逐渐普及，文人墨客常以茉莉为题吟诗作赋。南宋诗人刘克庄曾写道：“一卉能熏一室香，炎天犹觉玉肌凉。”说的就是茉莉花在盛夏带来的清凉与芬芳。<span class="key">_t9</span></p>
+        <p>茉莉花在西汉时期经由丝绸之路传入中国，最早种植于南方沿海地区。宋代以后，茉莉花的栽培逐渐普及，文人墨客常以茉莉为题吟诗作赋。南宋诗人刘克庄曾写道："一卉能熏一室香，炎天犹觉玉肌凉。"说的就是茉莉花在盛夏带来的清凉与芬芳。<span class="key">_t9</span></p>
 
-        <p>茉莉花喜温暖湿润的环境，不耐寒，怕积水。土壤以疏松肥沃的微酸性砂质壤土为佳。盆栽茉莉花需要充足的阳光，否则花朵稀少，香气也会大打折扣。每年春季需要修剪枯枝和过密的枝条，以促进新枝萌发。茉莉花的花期很长，从初夏一直开到深秋，养护得当甚至可以延续到初冬。<span class="key">m0</span></p>
+        <p>茉莉花喜温暖湿润的环境，不耐寒，怕积水。土壤以疏松肥沃的微酸性砂质壤土为佳。盆栽茉莉花需要充足的阳光，否则花朵稀少，香气也会大打折扣。<span class="key">m0</span>每年春季需要修剪枯枝和过密的枝条，以促进新枝萌发。茉莉花的花期很长，从初夏一直开到深秋，养护得当甚至可以延续到初冬。</p>
 
         <h3>茉莉花的品种分类</h3>
-        <p>茉莉花的品种繁多，常见的包括单瓣茉莉、双瓣茉莉和多瓣茉莉。单瓣茉莉花朵较小，香气浓郁；双瓣茉莉花朵较大，花瓣层数多，观赏性更强；多瓣茉莉则以花瓣繁复著称，但香气相对淡雅。此外，还有虎头茉莉、宝珠茉莉等珍贵品种，花瓣层叠如牡丹，极具观赏价值。<span class="key">9d</span></p>
+        <p>茉莉花的品种繁多，常见的包括单瓣茉莉、双瓣茉莉和多瓣茉莉。单瓣茉莉花朵较小，香气浓郁；双瓣茉莉花朵较大，花瓣层数多，观赏性更强；多瓣茉莉则以花瓣繁复著称，但香气相对淡雅。<span class="key">9d</span>此外，还有虎头茉莉、宝珠茉莉等珍贵品种，花瓣层叠如牡丹，极具观赏价值。</p>
 
-        <p>在西欧，茉莉花的花语是和蔼可亲。菲律宾人把它作忠于祖国、忠于爱情的象征，并推举为国花。来了贵宾，常将茉莉花编成花环挂在客人项间，以示欢迎和尊敬。印度人则将茉莉花编成花环，供奉在神庙中，认为茉莉花的香气可以沟通神灵。印度古典舞蹈中，舞者常在发髻间插上一串茉莉花，随着舞步的晃动，香气四溢，成为舞蹈的一部分。</p>
+        <p>在西欧，茉莉花的花语是和蔼可亲。菲律宾人把它作忠于祖国、忠于爱情的象征，并推举为国花。来了贵宾，常将茉莉花编成花环挂在客人项间，以示欢迎和尊敬。<span class="key">2f</span>印度人则将茉莉花编成花环，供奉在神庙中，认为茉莉花的香气可以沟通神灵。</p>
 
         <h3>茉莉花的药用价值</h3>
-        <p>茉莉花不仅可供观赏，还具有药用价值。中医认为茉莉花性温，味辛甘，有理气开郁、辟秽和中的功效。茉莉花茶是花茶中的大宗品种，以绿茶为茶胚，用茉莉鲜花窨制而成。优质的茉莉花茶香气鲜灵持久，汤色黄绿明亮，滋味醇厚鲜爽。冲泡茉莉花茶时，先用温水润茶，再用沸水冲泡，香气顷刻间弥漫满室。<span class="key">2f</span></p>
+        <p>茉莉花不仅可供观赏，还具有药用价值。中医认为茉莉花性温，味辛甘，有理气开郁、辟秽和中的功效。<span class="key">p4</span>茉莉花茶是花茶中的大宗品种，以绿茶为茶胚，用茉莉鲜花窨制而成。优质的茉莉花茶香气鲜灵持久，汤色黄绿明亮，滋味醇厚鲜爽。</p>
 
-        <p>还有一种说法，茉莉花的香气在夜晚尤其浓郁，古人认为它能安神静心，但也有人相信，茉莉种在窗前会吸引游荡的魂灵。当然，这不过是民间传说罢了。在福建、广东一带，至今仍有“茉莉不开花，家里有冤家”的俗语，意思是茉莉花如果不开花，预示家中将有纷争。<span class="key">p4</span></p>
+        <p>还有一种说法，茉莉花的香气在夜晚尤其浓郁，古人认为它能安神静心，但也有人相信，茉莉种在窗前会吸引游荡的魂灵。<span class="key">x6</span>当然，这不过是民间传说罢了。</p>
 
         <p>茉莉花可制成花茶，其口感柔和，不苦不涩。冲泡三次之后，花瓣仍有余香。以前学校里老校工总在花圃边种一圈茉莉，初夏时整个长廊都是白的。</p>
 
-        <blockquote>《本草纲目》中记载：“茉莉花，辛热无毒，可蒸油取液，作面脂头泽，长发润燥香肌。”可见古人已经将茉莉花用于美容护肤。</blockquote>
+        <blockquote>《本草纲目》中记载："茉莉花，辛热无毒，可蒸油取液，作面脂头泽，长发润燥香肌。"可见古人已经将茉莉花用于美容护肤。</blockquote>
 
-        <p>茉莉花的香气成分复杂，含有芳樟醇、乙酸苄酯、茉莉酮等多种芳香物质。其中茉莉酮是一种极其昂贵的香料原料，每公斤价值数万美元。这也是为什么天然茉莉花精油价格居高不下的原因。人工合成的茉莉香精虽然可以模仿茉莉花的香气，但终究缺少天然茉莉花那种层次丰富的清甜与幽深。<span class="key">x6</span></p>
+        <p>茉莉花的香气成分复杂，含有芳樟醇、乙酸苄酯、茉莉酮等多种芳香物质。其中茉莉酮是一种极其昂贵的香料原料，每公斤价值数万美元。</p>
 
-        <p>花语有时候也是人们赋予的执念。花本身不知道什么叫忠贞，什么叫猜忌，但人会在花瓣的颜色里找自己的影子。就像最近在翻旧档案时看到一句奇怪的话：“<span class="cursed-name" data-original="莫莉">莫莉</span>，<span class="cursed-name" data-original="莫莉">莫莉</span>，莫离，莫离。” 不知道是谁写的。<span class="key">w</span></p>
+        <p>花语有时候也是人们赋予的执念。花本身不知道什么叫忠贞，什么叫猜忌，但人会在花瓣的颜色里找自己的影子。<span class="key">w</span>就像最近在翻旧档案时看到一句奇怪的话："茉莉，茉莉，莫离，莫离。" 不知道是谁写的。</p>
 
-        <p>据地方县志零星记载，光绪三十二年，江南某女子学堂曾发生过一桩讳莫如深的旧事。学堂后院种着一片茉莉花圃，由两名女学生共同照料。其中一位常在花圃间吟诗，另一位则默默为她撑伞遮阳。那年茉莉花开得异常繁盛，香气飘满了整条街巷。但花季末尾，其中一人忽然不再出现。学堂对其姓名籍贯讳莫如深，档案中只留下一个被墨汁涂黑的名字，和一页被撕去大半的记录。另一人在花圃边站了三天三夜，最终也不知所终。附近老人说，每年茉莉花开的时候，还能看见一个模糊的影子在花圃边徘徊，像是在等什么人。但这些都是无从考证的民间传闻了。</p>
+        <p>据地方县志零星记载，光绪三十二年，江南某女子学堂曾发生过一桩讳莫如深的旧事。学堂后院种着一片茉莉花圃，由两名女学生共同照料。其中一位常在花圃间吟诗，另一位则默默为她撑伞遮阳。那年茉莉花开得异常繁盛，香气飘满了整条街巷。但花季末尾，其中一人忽然不再出现。学堂对其姓名籍贯讳莫如深，档案中只留下一个被墨汁涂黑的名字，和一页被撕去大半的记录。</p>
 
-        <p>茉莉花的花期很长，但每一朵花只开一天。清晨花瓣微微张开，午时全开，傍晚便渐渐闭合，次日凋落。采花人必须在午后花朵全开时采摘，过午不候。这也被一些人赋予了“一期一会”的意味——每一次相遇都是唯一的一次。<span class="key blink-text">cl</span></p>
+        <p>茉莉花的花期很长，但每一朵花只开一天。清晨花瓣微微张开，午时全开，傍晚便渐渐闭合，次日凋落。采花人必须在午后花朵全开时采摘，过午不候。这也被一些人赋予了"一期一会"的意味——每一次相遇都是唯一的一次。<span class="key">cl</span></p>
 
-        <p>现代植物学研究表明，茉莉花的香气具有降低焦虑、改善情绪的作用。日本学者曾在养老院进行实验，发现经常接触茉莉花香气的老人睡眠质量显著提高，抑郁情绪也有所缓解。也许这就是为什么那么多人喜欢在卧室里养一盆茉莉花——它不只是装饰，更像是一种温和的陪伴。</p>
+        <p>现代植物学研究表明，茉莉花的香气具有降低焦虑、改善情绪的作用。日本学者曾在养老院进行实验，发现经常接触茉莉花香气的老人睡眠质量显著提高，抑郁情绪也有所缓解。</p>
 
-        <p>茉莉花在文学作品中常常被赋予悲剧色彩。张爱玲在《茉莉香片》中写道：“我给您沏的这壶茉莉香片，是四川茶馆里最上等的。”小说中的男主角聂传庆在茉莉花的香气中回忆母亲的往事，那种清幽的香气与压抑的情感交织在一起，令人久久难以忘怀。</p>
+        <p>茉莉花在文学作品中常常被赋予悲剧色彩。张爱玲在《茉莉香片》中写道："我给您沏的这壶茉莉香片，是四川茶馆里最上等的。"小说中的男主角在茉莉花的香气中回忆往事，那种清幽的香气与压抑的情感交织在一起，令人久久难以忘怀。</p>
 
         <p>茉莉花谢了会再开。但有些东西谢了，就不会再开了。</p>
     </div>
-    <div class="footer">📖 花间集 · 慢慢读</div>
+    <div class="footer">花间集 · 慢慢读</div>
 </div>
 
+<!-- 密码弹窗 -->
 <div id="popup" class="popup">
-    <div class="popup-title">✧ 请输入密码 ✧</div>
+    <div class="popup-title">请输入密码</div>
     <input type="text" id="passwordInput" class="popup-input" placeholder="密钥组合" autocomplete="off">
     <button id="submitPwd" class="popup-btn">验证</button>
     <div id="errorMsg" class="error-msg">密码错误，再试试看？</div>
 </div>
 
-<div id="fakeDownload" class="fake-download">📁 正在下载 secret.doc ... 37%</div>
+<!-- 访问计数器 -->
+<div id="visitCounter" class="visit-counter">加载中...</div>
 
 <script>
-    // === 新密钥：适配莫莉和陈梨的故事 ===
+    // ==================== 密钥验证 ====================
     // 密钥顺序按照页面中出现顺序
     const keySegments = ["ml", "k7", "3j", "_t9", "m0", "9d", "2f", "p4", "x6", "w", "cl"];
-    // 密码组合：mlk73j_t9m09d2fp4x6wcl
-    const CORRECT_PASSWORD = keySegments.join('');
+    const CORRECT_PASSWORD = keySegments.join(''); // mlk73j_t9m09d2fp4x6wcl
 
     let popupShown = false;
     const popupEl = document.getElementById('popup');
@@ -309,6 +278,7 @@
         }
     });
 
+    // 如果页面本身就短（适配小屏幕），也弹窗
     setTimeout(() => {
         const scrollHeight = document.documentElement.scrollHeight;
         const clientHeight = window.innerHeight;
@@ -339,151 +309,40 @@
     console.log("密钥片段（按顺序）:", keySegments);
     console.log("完整密码:", CORRECT_PASSWORD);
     console.log("ml → 莫莉 | cl → 陈梨");
-    console.log("%c茉莉花谢了。有些东西谢了，就不会再开了。", "color: #8b3a3a; font-style: italic;");
 
-    // ========== 恶趣味小机关 ==========
-
-    // 1. 动态乱码姓名：鼠标悬停时变成乱码
-    const cursedNames = document.querySelectorAll('.cursed-name');
-    cursedNames.forEach(el => {
-        const original = el.getAttribute('data-original') || el.textContent;
-        el.addEventListener('mouseenter', () => {
-            el.setAttribute('data-original', el.textContent);
-            // 生成随机乱码
-            const garbage = ['䥴䥵䥶', '�', '㐂㐃', '〠〡', 'm0r1i', 's3p', '4r4t', '???', '????', '////////'];
-            const randomGarbage = garbage[Math.floor(Math.random() * garbage.length)];
-            el.textContent = randomGarbage;
-            setTimeout(() => {
-                el.textContent = original;
-            }, 300);
-        });
-    });
-
-    // 2. 假下载条：随机出现
-    let downloadInterval;
-    function showFakeDownload() {
-        const fakeDownload = document.getElementById('fakeDownload');
-        fakeDownload.style.opacity = '1';
-        const percentages = ['12%', '24%', '37%', '45%', '58%', '63%', '71%', '84%', '92%', '99%', '失败，重试中...'];
-        let idx = 0;
-        if (downloadInterval) clearInterval(downloadInterval);
-        downloadInterval = setInterval(() => {
-            if (idx < percentages.length) {
-                fakeDownload.innerHTML = `📁 正在下载 secret_${Math.floor(Math.random() * 1000)}.doc ... ${percentages[idx]}`;
-                idx++;
-            } else {
-                fakeDownload.innerHTML = `⚠️ 下载失败。文件不存在或已被删除。`;
-                setTimeout(() => {
-                    fakeDownload.style.opacity = '0';
-                    clearInterval(downloadInterval);
-                }, 3000);
-            }
-        }, 800);
-        setTimeout(() => {
-            if (fakeDownload.style.opacity !== '0') {
-                fakeDownload.style.opacity = '0';
-                clearInterval(downloadInterval);
-            }
-        }, 12000);
+    // ==================== 访问次数记录 ====================
+    let visitCount = localStorage.getItem('jasmine_visit_count');
+    if (visitCount === null) {
+        visitCount = 1;
+    } else {
+        visitCount = parseInt(visitCount) + 1;
     }
-    // 随机触发假下载（每30-60秒）
-    setInterval(() => {
-        if (Math.random() > 0.5) showFakeDownload();
-    }, 35000);
-
-    // 3. 控制台假报错
-    setTimeout(() => {
-        console.log("%c[ERROR] 无法读取档案: ../records/chenli_1896.txt", "color: #b55a5a;");
-    }, 8000);
-    setTimeout(() => {
-        console.log("%c[WARNING] 茉莉花.jpg 元数据损坏 | 拍摄日期: 1901/??/??", "color: #cc8844;");
-    }, 15000);
-    setTimeout(() => {
-        console.log("%c[CRITICAL] 内存不足 | 无法渲染完整页面 | 也许有些东西不该被看到", "color: #aa3333; font-weight: bold;");
-    }, 25000);
-    setInterval(() => {
-        if (Math.random() > 0.7) {
-            console.log("%c[system] 心跳检测失败。陈梨未响应。", "color: #8b5a5a;");
+    localStorage.setItem('jasmine_visit_count', visitCount);
+    
+    const counterDiv = document.getElementById('visitCounter');
+    if (counterDiv) {
+        if (visitCount === 1) {
+            counterDiv.innerHTML = '你第1次来到这里';
+        } else {
+            counterDiv.innerHTML = `你第${visitCount}次来到这里`;
         }
-    }, 30000);
-
-    // 4. 鼠标拖尾痕迹（恶趣味：移动鼠标留下小红点）
-    const trails = [];
-    function createTrail(x, y) {
-        const trail = document.createElement('div');
-        trail.className = 'trail';
-        trail.style.left = x + 'px';
-        trail.style.top = y + 'px';
-        trail.style.opacity = '0.6';
-        document.body.appendChild(trail);
-        trails.push(trail);
-        setTimeout(() => {
-            trail.style.opacity = '0';
-            setTimeout(() => trail.remove(), 300);
-        }, 500);
     }
-    let lastX = 0, lastY = 0;
-    document.addEventListener('mousemove', (e) => {
-        // 限制拖尾频率
-        if (Math.abs(e.clientX - lastX) > 8 || Math.abs(e.clientY - lastY) > 8) {
-            createTrail(e.clientX, e.clientY);
-            lastX = e.clientX;
-            lastY = e.clientY;
-        }
-    });
-
-    // 5. 页面标题偶尔闪烁警告
-    let originalTitle = document.title;
-    setInterval(() => {
-        if (Math.random() > 0.8) {
-            document.title = "⚠️ 档案可能不完整 ⚠️";
-            setTimeout(() => {
-                document.title = originalTitle;
-            }, 1500);
-        }
-    }, 10000);
-
-    // 6. 隐藏文本：选中某些区域会出现奇怪提示
-    document.addEventListener('mouseup', () => {
-        const selection = window.getSelection().toString();
-        if (selection.includes('茉莉') || selection.includes('花')) {
-            const msg = document.createElement('div');
-            msg.style.position = 'fixed';
-            msg.style.bottom = '80px';
-            msg.style.right = '30px';
-            msg.style.background = '#fef0f0';
-            msg.style.border = '1px solid #d4a5a5';
-            msg.style.padding = '6px 12px';
-            msg.style.fontSize = '11px';
-            msg.style.fontFamily = 'monospace';
-            msg.style.color = '#8b3a3a';
-            msg.style.zIndex = '1000';
-            msg.innerHTML = '🔍 你选中了"' + selection.slice(0, 20) + '"<br>但这部分记录已被涂黑。';
-            document.body.appendChild(msg);
-            setTimeout(() => msg.remove(), 2000);
-        }
-    });
-
-    // 7. 页面滚动时偶尔出现“咯咯”的假声音提示（视觉模拟）
-    let scrollCounter = 0;
-    window.addEventListener('scroll', () => {
-        scrollCounter++;
-        if (scrollCounter % 15 === 0) {
-            const creakMsg = document.createElement('div');
-            creakMsg.style.position = 'fixed';
-            creakMsg.style.bottom = '120px';
-            creakMsg.style.right = '30px';
-            creakMsg.style.fontSize = '10px';
-            creakMsg.style.color = '#9aa8b3';
-            creakMsg.style.fontFamily = 'monospace';
-            creakMsg.style.background = '#fff';
-            creakMsg.style.padding = '2px 6px';
-            creakMsg.style.border = '1px solid #e0e0e0';
-            creakMsg.innerHTML = '📜 纸张翻动的声音...';
-            document.body.appendChild(creakMsg);
-            setTimeout(() => creakMsg.remove(), 800);
-        }
-    });
+    
+    console.log(`[茉莉花] 你第${visitCount}次翻开这篇博文`);
+    
+    // 根据访问次数改变样式
+    if (visitCount >= 3) {
+        counterDiv.style.color = '#8b3a3a';
+        counterDiv.style.background = 'rgba(139,0,0,0.1)';
+        console.log("%c[茉莉花] 你又来了…", "color: #8b3a3a;");
+    }
+    if (visitCount >= 5) {
+        counterDiv.style.border = '1px solid #8b3a3a';
+        console.log("%c[茉莉花] 你不应该来这么多次的。", "color: #aa4444;");
+    }
+    if (visitCount >= 10) {
+        console.log("%c[茉莉花] 你在找什么？", "color: #ff4444; font-size: 14px;");
+    }
 </script>
 </body>
 </html>
