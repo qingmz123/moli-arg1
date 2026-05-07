@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Lili的个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0ede5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 40px 20px;
+            color: #2c2c2c;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, filter 0.3s;
+        }
+
+        /* 暗化效果 - 头像切换后触发 */
+        body.dark-mode {
+            background: #1a1a1a;
+            filter: brightness(0.95) contrast(1.1);
+        }
+        body.dark-mode .container {
+            background: #2a2a2a;
+            border-color: #4a4a4a;
+        }
+        body.dark-mode .sidebar {
+            background: #222222;
+            border-right-color: #3a3a3a;
+        }
+        body.dark-mode .profile-info .name,
+        body.dark-mode .profile-info .signature,
+        body.dark-mode .diary-text,
+        body.dark-mode .diary-date {
+            color: #aaa;
+        }
+        body.dark-mode .diary-item {
+            background: #2e2e2e;
+            border-color: #3a3a3a;
+        }
+        body.dark-mode .blog-entry {
+            background: #3a2a2a;
+        }
+        body.dark-mode .student-id {
+            background: #3a3a3a;
+            color: #aaa;
+        }
+
+        /* 主容器 - 左右布局 */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fffef7;
+            border: 1px solid #e0ddd5;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 500px;
+            transition: all 0.3s;
+        }
+
+        /* 左侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: #faf8f3;
+            border-right: 1px solid #e8e4da;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 头像区域 */
+        .avatar-area {
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #d4cfc4;
+            transition: all 0.3s;
+            margin: 0 auto;
+        }
+        .avatar:hover {
+            border-color: #b0a89a;
+            filter: brightness(0.95);
+        }
+        .avatar-caption {
+            font-size: 10px;
+            color: #aaa599;
+            margin-top: 8px;
+        }
+        /* 头像周围的诡异光晕 - 切换后出现 */
+        .avatar-area::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        .avatar-area.glowing::before {
+            box-shadow: 0 0 20px 5px #8b0000;
+            animation: pulseGlow 1s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px 5px #8b0000; opacity: 0.5; }
+            50% { box-shadow: 0 0 40px 15px #ff0000; opacity: 0.8; }
+        }
+
+        /* 个人信息 */
+        .profile-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .name {
+            font-size: 22px;
+            font-weight: 400;
+            color: #3a3a3a;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .signature {
+            font-size: 12px;
+            color: #8f8a7c;
+            border-top: 1px solid #e0dbd0;
+            border-bottom: 1px solid #e0dbd0;
+            padding: 8px 0;
+            margin: 12px 0;
+            font-family: monospace;
+        }
+        .student-id {
+            font-size: 11px;
+            color: #bcb7aa;
+            background: #f0ede5;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            word-break: break-all;
+        }
+
+        /* 博客入口（在左侧底部） */
+        .blog-entry {
+            background: #e8e4da;
+            padding: 14px;
+            margin-top: auto;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 8px;
+        }
+        .blog-entry:hover {
+            background: #ddd6c8;
+            transform: scale(1.02);
+        }
+        .blog-entry-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #5a5a4a;
+        }
+        .blog-entry-desc {
+            font-size: 11px;
+            color: #8f8a7c;
+            margin-top: 4px;
+        }
+
+        /* 右侧内容区 - 博文日记 */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background: #fffef7;
+        }
+        .diary-title {
+            font-size: 15px;
+            color: #b0aa9a;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eeeae2;
+            padding-bottom: 8px;
+        }
+        .diary-item {
+            background: #fefcf8;
+            padding: 18px;
+            margin-bottom: 18px;
+            border: 1px solid #f0ede5;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .diary-item:hover {
+            background: #fcfaf4;
+            border-color: #d4cbb8;
+            transform: translateX(3px);
+        }
+        .diary-date {
+            font-size: 12px;
+            color: #c2bba8;
+            margin-bottom: 8px;
+        }
+        .diary-title-clickable {
+            font-size: 18px;
+            font-weight: 500;
+            color: #5a5a4a;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .diary-title-clickable:hover {
+            color: #8b6b4a;
+            text-decoration: underline;
+        }
+        .diary-text {
+            font-size: 16px;
+            color: #5a5a5a;
+            line-height: 1.7;
+        }
+        .diary-preview {
+            font-size: 14px;
+            color: #8a8a7a;
+            margin-top: 8px;
+        }
+
+        /* 密码弹窗 */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .modal-content {
+            background: #fffef7;
+            padding: 30px;
+            max-width: 340px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #ddd8cd;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .modal-content h3 {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #5a5a5a;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd4c6;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .modal-content button {
+            background: #e8e4da;
+            border: none;
+            padding: 8px 24px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.1s;
+        }
+        .modal-content button:hover {
+            background: #d9d2c4;
+        }
+        .error-msg {
+            color: #b55a5a;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* 闪屏动画 */
+        @keyframes redFlash {
+            0% { opacity: 0; }
+            50% { opacity: 0.6; background-color: #8b0000; }
+            100% { opacity: 0; }
+        }
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #8b0000;
+            pointer-events: none;
+            z-index: 9999;
+            animation: redFlash 0.3s ease-out;
+        }
+
+        /* 更强烈的闪烁 */
+        .intense-flash {
+            animation: intenseFlash 0.2s ease-out;
+        }
+        @keyframes intenseFlash {
+            0% { opacity: 0; }
+            20% { opacity: 0.8; background-color: #ff0000; }
+            40% { opacity: 0.3; background-color: #8b0000; }
+            60% { opacity: 0.7; background-color: #ff0000; }
+            100% { opacity: 0; }
+        }
+
+        /* 404陷阱页 - 以假乱真 */
+        .trap-404 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: -apple-system, 'Segoe UI', monospace;
+            z-index: 20000;
+            text-align: center;
+        }
+        .trap-404 h1 {
+            font-size: 120px;
+            color: #ccc;
+            font-weight: 300;
+            letter-spacing: 10px;
+        }
+        .trap-404 p {
+            margin-top: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        .trap-404 .error-code {
+            font-family: monospace;
+            font-size: 12px;
+            color: #bbb;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e8e4da;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .diary-text {
+                font-size: 15px;
+            }
+            .diary-title-clickable {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 左侧边栏 -->
+    <div class="sidebar">
+        <div class="avatar-area" id="avatarArea">
+            <img src="moli1.jpg" alt="头像" class="avatar" id="avatarImg" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2750%27 fill=%27%23b0aa9a%27/%3E%3Ccircle cx=%2735%27 cy=%2740%27 r=%275%27 fill=%27%236a6a6a%27/%3E%3Ccircle cx=%2765%27 cy=%2740%27 r=%275%27 fill=%27%236a6a6a%27/%3E%3Cpath d=%27M35 65 Q50 75 65 65%27 stroke=%27%236a6a6a%27 stroke-width=%272%27 fill=%27none%27/%3E%3C/svg%3E'">
+            <div class="avatar-caption">点击查看大图</div>
+        </div>
+        <div class="profile-info">
+            <div class="name">🌿 LIli.</div>
+            <div class="signature">太执着也是一种创伤。</div>
+            <div class="student-id">✉️ MoliMoli@Jingluozhongxue</div>
+        </div>
+        <div class="blog-entry" id="blogEntry">
+            <div class="blog-entry-title">📔 私人博客 · 仅限本人</div>
+            <div class="blog-entry-desc">点击验证</div>
+        </div>
+    </div>
+
+    <!-- 右侧内容区 -->
+    <div class="main-content">
+        <div class="diary-title">📖 最近の碎碎念</div>
+        
+        <div class="diary-item" data-diary="1">
+            <div class="diary-date">2024.12.03</div>
+            <div class="diary-title-clickable" data-diary="1">💭 没来由的低落</div>
+            <div class="diary-preview">今天一直坐在座位上发呆，心情不知为何感到很低落...</div>
+            <div class="diary-text full" style="display:none;">今天一直坐在座位上发呆，心情不知为何感到很低落，仿佛临近了什么日子一样。脑中炸雷般闪过一个概念：如果是你会怎么做？……可等到再想捕捉那个感觉时，一切又像幻梦般流走了。</div>
+        </div>
+        
+        <div class="diary-item" data-diary="2">
+            <div class="diary-date">2024.12.07</div>
+            <div class="diary-title-clickable" data-diary="2">📸 旧照片</div>
+            <div class="diary-preview">今天整理旧物，翻到一张拍立得。其中一个人的脸模糊得像被水泡过一样...</div>
+            <div class="diary-text full" style="display:none;">今天整理旧物，翻到一张拍立得。其中一个人的脸模糊得像被水泡过一样，长发垂落至胸口，我笑得格外灿烂。双手与她紧紧交叠。这样亲密的照片是什么时候留下的？我也不记得那天和谁一起了，问了周围的朋友，她们也或疑惑或否认，仿佛这张照片是凭空出现一般，难道我真的有某个…被遗忘的朋友？或许我们曾经无比要好，那为什么现在又不再联系了呢…。</div>
+        </div>
+        
+        <div class="diary-item" data-diary="3">
+            <div class="diary-date">2024.12.10</div>
+            <div class="diary-title-clickable" data-diary="3">🌙 梦</div>
+            <div class="diary-preview">最近总是梦到有人在叫我。不是我的名字...</div>
+            <div class="diary-text full" style="display:none;">最近总是梦到有人在叫我。不是我的名字。醒来时，发现枕头是湿的。</div>
+        </div>
+        
+        <div class="diary-item" data-diary="4">
+            <div class="diary-date">2024.12.14</div>
+            <div class="diary-title-clickable" data-diary="4">🌸 茉莉花</div>
+            <div class="diary-preview">校工说，后院的花圃早就没人打理了。可是昨天路过时，茉莉花开了...</div>
+            <div class="diary-text full" style="display:none;">校工说，后院的花圃早就没人打理了。可是昨天路过时，茉莉花开了。这个季节不应该开花的。今天坐在石凳上的时候，一直在循环那首歌。仿佛穿越时空前往了19年前的元旦夜，王思思，你唱这首歌的时候在想什么呢？为什么声音如此哀怨又如此婉转？</div>
+        </div>
+        
+        <div class="diary-item" data-diary="5">
+            <div class="diary-date">2024.12.18</div>
+            <div class="diary-title-clickable" data-diary="5">👥 两个人</div>
+            <div class="diary-preview">今天在走廊上，似乎看到了一个熟悉的身影...</div>
+            <div class="diary-text full" style="display:none;">今天在走廊上，似乎看到了一个熟悉的身影。但一眨眼就不见了。是错觉吗？</div>
+        </div>
+        
+        <div class="diary-item" data-diary="6">
+            <div class="diary-date">2024.12.20</div>
+            <div class="diary-title-clickable" data-diary="6">🎵 歌词摘录</div>
+            <div class="diary-preview">记得你说夜好美…...</div>
+            <div class="diary-text full" style="display:none;">记得你说夜好美
+星星在跟随
+地里还有暖风吹
+我的咖啡 你的陶醉
+如果还有一杯
+有毒你悔不悔
+还有梦在追
+追到翅膀都破碎
+粘起来再飞
+天使说还有机会
+有时犯规 有时防备
+你却太轻狂又太落寞…
+</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== 博文展开/收起 ====================
+    document.querySelectorAll('.diary-item').forEach(item => {
+        const clickable = item.querySelector('.diary-title-clickable');
+        const preview = item.querySelector('.diary-preview');
+        const fullText = item.querySelector('.diary-text.full');
+        
+        clickable.addEventListener('click', () => {
+            if (fullText.style.display === 'none') {
+                fullText.style.display = 'block';
+                preview.style.display = 'none';
+                console.log(`%c[日记] 展开了第${item.dataset.diary}篇日记`, "color: #8b6b4a;");
+            } else {
+                fullText.style.display = 'none';
+                preview.style.display = 'block';
+            }
+        });
+    });
+
+    // ==================== 头像切换 + 闪屏 + 暗化效果 ====================
+    const avatar1 = "moli1.jpg";
+    const avatar2 = "moli2.jpg";
+    
+    let avatarSwitched = false;
+    let idleTimer;
+    let darkModeActivated = false;
+    
+    function switchAvatarAndFlash() {
+        if (avatarSwitched) return;
+        avatarSwitched = true;
+        
+        const avatarImg = document.getElementById('avatarImg');
+        avatarImg.src = avatar2;
+        
+        // 添加光晕效果
+        document.getElementById('avatarArea').classList.add('glowing');
+        
+        // 闪屏
+        const flash = document.createElement('div');
+        flash.className = 'flash-overlay';
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 300);
+        
+        // 第二次更强烈的闪屏
+        setTimeout(() => {
+            const flash2 = document.createElement('div');
+            flash2.className = 'flash-overlay intense-flash';
+            document.body.appendChild(flash2);
+            setTimeout(() => flash2.remove(), 200);
+        }, 150);
+        
+        // 暗化页面
+        document.body.classList.add('dark-mode');
+        darkModeActivated = true;
+        
+        // 控制台输出恐怖信息
+        console.log("%c[个人主页] 莫莉的头像变了...", "color: #8b3a3a; font-size: 14px;");
+        console.log("%c[警告] 你盯着她看了太久。", "color: #aa4444; font-size: 12px;");
+        console.log("%c[提示] 她注意到你了。", "color: #ff6666;");
+        
+        // 弹出控制台警告
+        setTimeout(() => {
+            console.log("%c[系统] 检测到异常凝视行为", "color: #8b0000; font-size: 16px;");
+            console.log("%c[系统] 莫莉正在看着你", "color: #ff4444;");
+        }, 1000);
+        
+        // 页面标题变化
+        document.title = "⚠️ 她在看着你 ⚠️";
+        setTimeout(() => {
+            document.title = "Lili的个人主页";
+        }, 3000);
+    }
+    
+    document.getElementById('avatarArea').addEventListener('click', () => {
+        switchAvatarAndFlash();
+        resetIdleTimer();
+    });
+    
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+            if (!avatarSwitched) {
+                switchAvatarAndFlash();
+            }
+        }, 15000);
+    }
+    resetIdleTimer();
+    window.addEventListener('mousemove', resetIdleTimer);
+    window.addEventListener('keydown', resetIdleTimer);
+    
+    // ==================== 私人博客密码陷阱 ====================
+    let passwordAttempts = 0;
+    let trapActivated = false;
+    let isInPasswordModal = false;
+    
+    const CORRECT_PASSWORD = "爱我不要丢下我";
+    
+    function showPasswordModal() {
+        if (trapActivated || isInPasswordModal) return;
+        isInPasswordModal = true;
+        
+        const modalDiv = document.createElement('div');
+        modalDiv.className = 'password-modal';
+        modalDiv.id = 'passwordModal';
+        modalDiv.innerHTML = `
+            <div class="modal-content">
+                <h3>🔐 私人博客 · 请输入密码</h3>
+                <p style="font-size:12px; color:#9b927e; margin-bottom:12px;">我最喜欢的歌曲^^</p>
+                <input type="text" id="passwordInput" placeholder="答案" autocomplete="off">
+                <div style="margin-top: 8px;">
+                    <button id="submitPwdBtn">确认</button>
+                </div>
+                <div id="pwdError" class="error-msg" style="display:none;">密码错误，请重新尝试</div>
+            </div>
+        `;
+        document.body.appendChild(modalDiv);
+        
+        const inputField = document.getElementById('passwordInput');
+        const submitBtn = document.getElementById('submitPwdBtn');
+        const errorDiv = document.getElementById('pwdError');
+        
+        function verifyPassword() {
+            const entered = inputField.value.trim();
+            if (entered === CORRECT_PASSWORD) {
+                modalDiv.remove();
+                isInPasswordModal = false;
+                showPrivateBlog();
+            } else {
+                passwordAttempts++;
+                errorDiv.style.display = 'block';
+                inputField.value = '';
+                if (passwordAttempts >= 3) {
+                    modalDiv.remove();
+                    isInPasswordModal = false;
+                    showNetworkLostTrap();
+                }
+            }
+        }
+        
+        submitBtn.addEventListener('click', verifyPassword);
+        inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyPassword();
+        });
+    }
+    
+    function showNetworkLostTrap() {
+        if (trapActivated) return;
+        trapActivated = true;
+        
+        const confirmDiv = document.createElement('div');
+        confirmDiv.className = 'password-modal';
+        confirmDiv.innerHTML = `
+            <div class="modal-content" style="max-width: 300px;">
+                <h3 style="color:#8b5a5a;">⚠️ 网络丢失</h3>
+                <p style="font-size:13px; margin:15px 0;">请刷新尝试！</p>
+                <button id="confirmTrapBtn">确认</button>
+            </div>
+        `;
+        document.body.appendChild(confirmDiv);
+        
+        document.getElementById('confirmTrapBtn').addEventListener('click', () => {
+            confirmDiv.remove();
+            showTrap404();
+        });
+    }
+    
+    function showTrap404() {
+        document.body.innerHTML = '';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        document.body.style.background = '#f5f5f5';
+        
+        const trapDiv = document.createElement('div');
+        trapDiv.className = 'trap-404';
+        trapDiv.innerHTML = `
+            <h1>404</h1>
+            <p>网络连接丢失，请检查你的网络设置或防火墙。</p>
+            <p style="font-size: 12px; margin-top: 15px;">可能原因：</p>
+            <p style="font-size: 11px; color: #aaa; margin-top: 5px;">· 网络电缆未正确插入或已损坏</p>
+            <p style="font-size: 11px; color: #aaa;">· 调制解调器或路由器出现故障</p>
+            <p style="font-size: 11px; color: #aaa;">· 网页服务器可能已断开连接</p>
+            <div class="error-code">错误代码: HTTP 404 - 页面不存在</div>
+            <div style="margin-top: 30px; font-size: 10px; color: #ccc;">请稍后再试</div>
+        `;
+        document.body.appendChild(trapDiv);
+        
+        window.location.hash = 'no-back';
+        window.history.pushState(null, '', '#trap');
+        window.onpopstate = function() {
+            window.history.pushState(null, '', '#trap');
+        };
+        
+        console.log("%c[陷阱] 用户已进入不可逆404。", "color: #8b3a3a;");
+    }
+    
+    function showPrivateBlog() {
+        document.body.innerHTML = '';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        document.body.style.background = '#fffbe6';
+        
+        const blogDiv = document.createElement('div');
+        blogDiv.style.background = '#fffbe6';
+        blogDiv.style.minHeight = '100vh';
+        blogDiv.style.padding = '40px 20px';
+        blogDiv.style.fontFamily = "'Segoe UI', 'Noto Sans', serif";
+        blogDiv.innerHTML = `
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="border-bottom: 1px solid #e8e0b0; padding-bottom: 15px; margin-bottom: 30px;">
+                    <span style="font-size: 28px;">🌙 莫莉的私人手帐</span>
+                    <span style="float: right; font-size: 13px; color: #b0a87a;">仅自己可见</span>
+                </div>
+                
+                <div class="blog-post" data-post="1" style="background: #fffcf0; padding: 25px; margin-bottom: 25px; border-left: 4px solid #e0d6a0; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 14px; color: #8a7a5a; margin-bottom: 10px;">2024.11.20</div>
+                    <div style="font-size: 18px; font-weight: 500; color: #5a5a3a;">💭 回忆</div>
+                    <div class="post-preview" style="font-size: 15px; color: #7a6a4a; margin-top: 10px;">我总是回忆着过去，麻木着现在，无法展望未来。</div>
+                    <div class="post-full" style="display:none; font-size: 16px; color: #5a5a3a; line-height: 1.7; margin-top: 15px;">我总是回忆着过去，麻木着现在，无法展望未来。那些逝去的日子像潮水一样涌来，裹挟着我无法呼吸。如果时间可以倒流，我会选择…不，没有如果。</div>
+                </div>
+                
+                <div class="blog-post" data-post="2" style="background: #fffcf0; padding: 25px; margin-bottom: 25px; border-left: 4px solid #e0d6a0; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 14px; color: #8a7a5a; margin-bottom: 10px;">2024.11.28</div>
+                    <div style="font-size: 18px; font-weight: 500; color: #5a5a3a;">🌙 梦</div>
+                    <div class="post-preview" style="font-size: 15px; color: #7a6a4a; margin-top: 10px;">做了一个很长很长的梦。醒来发现枕头是湿的。</div>
+                    <div class="post-full" style="display:none; font-size: 16px; color: #5a5a3a; line-height: 1.7; margin-top: 15px;">做了一个很长很长的梦。梦里有个人站在茉莉花圃里，一直在说“别离开我”。她的脸看不清，但声音好熟悉。醒来发现枕头是湿的。</div>
+                </div>
+                
+                <div class="blog-post" data-post="3" style="background: #fffcf0; padding: 25px; margin-bottom: 25px; border-left: 4px solid #e0d6a0; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 14px; color: #8a7a5a; margin-bottom: 10px;">2024.12.01</div>
+                    <div style="font-size: 18px; font-weight: 500; color: #5a5a3a;">📘 收藏夹 · 秘密链接</div>
+                    <div class="post-preview" style="font-size: 15px; color: #7a6a4a; margin-top: 10px;">这里藏着一些我无法忘记的东西...</div>
+                    <div class="post-full" style="display:none; font-size: 16px; color: #5a5a3a; line-height: 1.7; margin-top: 15px;">
+                        <a href="#" id="jasmineLink" style="color: #8b6b4a; text-decoration: underline; cursor: pointer; font-size: 16px;">📘 关于茉莉花</a>
+                        <span style="font-size: 12px; color:#bcae7a; margin-left: 12px;">※ 只有我能打开</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 50px; font-size: 11px; color: #c0b68a; text-align: center;">
+                    私密 · 请勿分享
+                </div>
+            </div>
+        `;
+        document.body.appendChild(blogDiv);
+        
+        // 博客文章展开/收起
+        document.querySelectorAll('.blog-post').forEach(post => {
+            const preview = post.querySelector('.post-preview');
+            const full = post.querySelector('.post-full');
+            post.addEventListener('click', (e) => {
+                if (e.target.id === 'jasmineLink') return;
+                if (full.style.display === 'none') {
+                    full.style.display = 'block';
+                    preview.style.display = 'none';
+                } else {
+                    full.style.display = 'none';
+                    preview.style.display = 'block';
+                }
+            });
+        });
+        
+        document.getElementById('jasmineLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = "jasmine.html";
+        });
+        
+        console.log("%c[私人博客] 莫莉的内心世界被打开了。", "color: #8b6b4a;");
+    }
+    
+    document.getElementById('blogEntry').addEventListener('click', () => {
+        if (trapActivated) return;
+        showPasswordModal();
+    });
+    
+    // ==================== 恶趣味：鼠标轨迹 ====================
+    let trailActive = false;
+    document.addEventListener('mousemove', (e) => {
+        if (avatarSwitched && !trailActive) {
+            trailActive = true;
+            const trail = document.createElement('div');
+            trail.style.position = 'fixed';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            trail.style.width = '4px';
+            trail.style.height = '4px';
+            trail.style.backgroundColor = '#8b0000';
+            trail.style.borderRadius = '50%';
+            trail.style.pointerEvents = 'none';
+            trail.style.zIndex = '99999';
+            trail.style.opacity = '0.8';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+            setTimeout(() => { trailActive = false; }, 50);
+        }
+    });
+    
+    // ==================== 恶趣味：控制台定时骚扰 ====================
+    setInterval(() => {
+        if (avatarSwitched) {
+            const messages = [
+                "%c[莫莉] 你还在吗？",
+                "%c[莫莉] 别离开我…",
+                "%c[系统] 心跳检测中...",
+                "%c[警告] 页面异常",
+                "%c[莫莉] 我看到你了"
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            console.log(randomMsg, "color: #8b3a3a; font-size: 12px;");
+        }
+    }, 10000);
+    
+    // ==================== 恶趣味：页面标题随机变化 ====================
+    let titleInterval;
+    if (avatarSwitched) {
+        startTitleChange();
+    }
+    
+    function startTitleChange() {
+        if (titleInterval) return;
+        const titles = ["别离开我", "她在看着你", "莫莉", "陈梨", "求求你", "别走"];
+        let idx = 0;
+        titleInterval = setInterval(() => {
+            if (document.title !== "Lili的个人主页") {
+                document.title = titles[idx % titles.length];
+                idx++;
+            }
+        }, 2000);
+    }
+    
+    // 监听头像切换后启动标题变化
+    const observer = new MutationObserver(() => {
+        if (avatarSwitched) startTitleChange();
+    });
+    observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+    
+    console.log("%c[个人主页] 签名: 太执着也是一种创伤。", "color: #8b8a7a;");
+    console.log("%c[提示] 密码提示: 我最喜欢的歌曲^^", "color: #8b6b4a;");
+    console.log("%c[秘密] 头上浇的不是水，是眼泪。", "color: #5a4a3a;");
+</script>
+</body>
+</html>
