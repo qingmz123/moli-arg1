@@ -2,6 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>不要离开我</title>
     <style>
         * {
@@ -14,40 +15,42 @@
         body {
             background-color: #000000;
             min-height: 100vh;
-            overflow-x: auto;
+            overflow-x: hidden;
             font-family: 'Courier New', 'MS Gothic', monospace;
             position: relative;
+            padding: 0.5rem;
+            font-size: 16px;
         }
 
-        /* 极致剧烈颤抖动画 - 更快更猛 */
+        /* 手机适配的颤抖动画 */
         @keyframes violentShake {
             0% { transform: translate(0px, 0px) rotate(0deg); }
-            1% { transform: translate(-5px, 3px) rotate(1deg); }
-            2% { transform: translate(4px, -3px) rotate(-0.8deg); }
-            3% { transform: translate(-3px, -2px) rotate(1.2deg); }
-            4% { transform: translate(5px, 2px) rotate(-1deg); }
-            5% { transform: translate(-4px, 3px) rotate(0.6deg); }
-            6% { transform: translate(3px, -4px) rotate(-1.3deg); }
-            7% { transform: translate(-5px, -1px) rotate(0.9deg); }
-            8% { transform: translate(4px, 1px) rotate(-0.5deg); }
-            9% { transform: translate(-3px, 4px) rotate(1.1deg); }
-            10% { transform: translate(0px, 0px) rotate(0deg); }
+            2% { transform: translate(-2px, 1px) rotate(0.5deg); }
+            4% { transform: translate(2px, -1px) rotate(-0.3deg); }
+            6% { transform: translate(-1px, -2px) rotate(0.8deg); }
+            8% { transform: translate(1px, 1px) rotate(-0.5deg); }
+            10% { transform: translate(-2px, 1px) rotate(0.3deg); }
+            12% { transform: translate(1px, -1px) rotate(-0.6deg); }
+            14% { transform: translate(-1px, 1px) rotate(0.4deg); }
+            16% { transform: translate(0px, 1px) rotate(-0.2deg); }
+            18% { transform: translate(1px, -1px) rotate(0.3deg); }
+            20% { transform: translate(0px, 0px) rotate(0deg); }
             100% { transform: translate(0px, 0px) rotate(0deg); }
         }
 
         body.shaking {
-            animation: violentShake 0.05s infinite ease;
+            animation: violentShake 0.08s infinite ease;
         }
 
-        /* 超大字体 */
+        /* 手机端字体大小 */
         .agony {
-            font-size: 55px;
-            line-height: 1.4;
-            padding: 2rem;
+            font-size: clamp(18px, 6vw, 32px);
+            line-height: 1.5;
+            padding: 1rem;
             max-width: 100%;
             word-break: break-all;
             white-space: normal;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .dark-crimson { color: #3a0a0a; }
@@ -56,79 +59,73 @@
         .blood-red { color: #9a2222; }
         .pale-red { color: #4a0f0f; }
 
-        /* 闪烁效果 */
         @keyframes blinkRed {
             0%, 100% { opacity: 1; text-shadow: none; }
-            50% { opacity: 0.3; text-shadow: 0 0 8px #ff0000; }
+            50% { opacity: 0.3; text-shadow: 0 0 4px #ff0000; }
         }
         .blink-fast {
             animation: blinkRed 0.3s infinite;
         }
 
-        /* 随机浮动 */
         @keyframes floatAnomaly {
             0% { transform: translateX(0px) translateY(0px); }
-            25% { transform: translateX(2px) translateY(-1px); }
-            50% { transform: translateX(-2px) translateY(1px); }
-            75% { transform: translateX(1px) translateY(-2px); }
+            50% { transform: translateX(1px) translateY(-1px); }
             100% { transform: translateX(0px) translateY(0px); }
         }
         .floating {
-            animation: floatAnomaly 0.2s infinite;
+            animation: floatAnomaly 0.3s infinite;
         }
 
-        /* 血滴效果 - 更密集更大 */
         .blood-drop {
             position: fixed;
-            width: 6px;
-            height: 12px;
+            width: 4px;
+            height: 8px;
             background: #8b0000;
             pointer-events: none;
             z-index: 9997;
-            animation: dropFall 2.5s ease-out forwards;
+            animation: dropFall 2s ease-out forwards;
             border-radius: 0 0 2px 2px;
         }
 
         @keyframes dropFall {
-            0% { transform: translateY(0); opacity: 0.9; }
+            0% { transform: translateY(0); opacity: 0.8; }
             100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        /* 大血滴 */
         .blood-splat {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 5px;
+            height: 5px;
             background: #8b0000;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9996;
-            animation: splatFade 1.5s ease-out forwards;
+            animation: splatFade 1.2s ease-out forwards;
         }
 
         @keyframes splatFade {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(3); opacity: 0; }
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(2.5); opacity: 0; }
         }
 
-        /* 假弹窗样式 - 停留更久 */
         .fake-alert {
             position: fixed;
             background: #0a0000;
-            border: 2px solid #5a1a1a;
-            padding: 15px 20px;
+            border: 1px solid #5a1a1a;
+            padding: 10px 14px;
             font-family: monospace;
-            font-size: 12px;
+            font-size: 10px;
             color: #aa4444;
             z-index: 10000;
-            box-shadow: 0 0 20px rgba(139,0,0,0.3);
+            box-shadow: 0 0 15px rgba(139,0,0,0.3);
             animation: blinkRed 0.5s infinite;
+            max-width: 80%;
+            word-break: break-word;
         }
 
-        /* 飘浮乱码 */
         .floating-garbage {
             position: fixed;
-            font-size: 12px;
+            font-size: 10px;
             color: #2a0606;
             font-family: monospace;
             pointer-events: none;
@@ -136,7 +133,6 @@
             white-space: nowrap;
         }
 
-        /* 屏幕裂纹效果 */
         .crack {
             position: fixed;
             top: 0;
@@ -147,14 +143,13 @@
                 45deg,
                 transparent 0px,
                 transparent 2px,
-                rgba(139,0,0,0.05) 2px,
-                rgba(139,0,0,0.05) 4px
+                rgba(139,0,0,0.04) 2px,
+                rgba(139,0,0,0.04) 4px
             );
             pointer-events: none;
             z-index: 9996;
         }
 
-        /* 红色闪屏层 */
         .red-flash {
             position: fixed;
             top: 0;
@@ -166,131 +161,136 @@
             z-index: 99999;
             opacity: 0;
         }
+
+        /* 手机端滚动条隐藏但保留功能 */
+        ::-webkit-scrollbar {
+            width: 2px;
+            height: 2px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a0a0a;
+        }
     </style>
 </head>
 <body>
 
 <div class="agony no-punct" id="agonyContent">
-    <span class="blood-red blink-fast">不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要</span>
-    <span class="crimson floating">不许离开我不许离开我不许离开我不许离开我不许离开我不许离开我不许离开我不许离开我</span>
-    <span class="deep-red">我不会放手我不会放手我不会放手我不会放手我不会放手我不会放手我不会放手我不会放手</span>
-    <span class="dark-crimson blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="blood-red floating">我不会允许你离开我不会允许你离开我不会允许你离开我不会允许你离开我不会允许你离开</span>
-    <span class="crimson">不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我</span>
-    <span class="deep-red blink-fast">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    <span class="dark-crimson floating">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
-    <span class="blood-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="crimson blink-fast">不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要不要</span>
-    <span class="deep-red floating">不许离开我不许离开我不许离开我不许离开我不许离开我不许离开我不许离开我</span>
-    <span class="dark-crimson">我不会放手我不会放手我不会放手我不会放手我不会放手我不会放手我不会放手</span>
-    <span class="blood-red blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="crimson floating">我不会允许你离开我不会允许你离开我不会允许你离开我不会允许你离开</span>
-    <span class="deep-red">不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我不要丢下我</span>
-    <span class="dark-crimson blink-fast">别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    <span class="blood-red floating">求求你求求你求求你求求你求求你求求你求求你求求你</span>
-    <span class="crimson">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="deep-red blink-fast">不要不要不要不要不要不要不要不要不要</span>
-    <span class="dark-crimson floating">不许离开我不许离开我不许离开我不许离开我</span>
-    <span class="blood-red">我不会放手我不会放手我不会放手我不会放手</span>
-    <span class="crimson blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="deep-red floating">我不会允许你离开我不会允许你离开</span>
-    <span class="dark-crimson">不要丢下我不要丢下我</span>
-    <span class="blood-red blink-fast">别离开我</span>
-    <span class="crimson">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="deep-red floating">别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    <span class="dark-crimson blink-fast">求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
-    <span class="blood-red">不要不要不要不要不要不要不要不要不要不要不要不要</span>
-    <span class="crimson floating">我不会放手我不会放手我不会放手我不会放手我不会放手</span>
-    <span class="deep-red blink-fast">不许离开我不许离开我不许离开我不许离开我不许离开我</span>
-    <span class="dark-crimson">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="blood-red floating">不要丢下我不要丢下我不要丢下我不要丢下我</span>
-    <span class="crimson blink-fast">别离开我别离开我别离开我别离开我</span>
-    <span class="deep-red">我不会允许你离开我不会允许你离开</span>
-    <span class="dark-crimson floating">陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="blood-red blink-fast">求求你求求你求求你</span>
-    <span class="crimson">不要不要不要</span>
-    <span class="deep-red floating">不许离开我</span>
-    <span class="dark-crimson blink-fast">陈梨</span>
-    <span class="blood-red">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    <span class="crimson floating">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
-    <span class="deep-red blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="dark-crimson">不要不要不要不要不要不要不要不要不要不要</span>
-    <span class="blood-red floating">不许离开我不许离开我不许离开我不许离开我不许离开我</span>
-    <span class="crimson blink-fast">我不会放手我不会放手我不会放手我不会放手我不会放手</span>
-    <span class="deep-red">我不会允许你离开我不会允许你离开我不会允许你离开</span>
-    <span class="dark-crimson floating">不要丢下我不要丢下我不要丢下我</span>
+    <span class="blood-red blink-fast">不要不要不要不要不要不要不要不要不要不要不要不要不要不要</span>
+    <span class="crimson floating">不许离开我不许离开我不许离开我不许离开我</span>
+    <span class="deep-red">我不会放手我不会放手我不会放手我不会放手</span>
+    <span class="dark-crimson blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="blood-red floating">我不会允许你离开我不会允许你离开</span>
+    <span class="crimson">不要丢下我不要丢下我不要丢下我不要丢下我</span>
+    <span class="deep-red blink-fast">别离开我别离开我别离开我别离开我别离开我</span>
+    <span class="dark-crimson floating">求求你求求你求求你求求你求求你</span>
+    <span class="blood-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="crimson blink-fast">不要不要不要不要不要不要不要不要</span>
+    <span class="deep-red floating">不许离开我不许离开我不许离开我</span>
+    <span class="dark-crimson">我不会放手我不会放手我不会放手</span>
     <span class="blood-red blink-fast">陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="crimson">别离开我别离开我别离开我</span>
-    <span class="deep-red floating">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
+    <span class="crimson floating">我不会允许你离开我不会允许你离开</span>
+    <span class="deep-red">不要丢下我不要丢下我不要丢下我</span>
+    <span class="dark-crimson blink-fast">别离开我别离开我别离开我</span>
+    <span class="blood-red floating">求求你求求你求求你求求你</span>
+    <span class="crimson">陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="deep-red blink-fast">不要不要不要不要不要</span>
+    <span class="dark-crimson floating">不许离开我不许离开我</span>
+    <span class="blood-red">我不会放手我不会放手</span>
+    <span class="crimson blink-fast">陈梨陈梨陈梨陈梨</span>
+    <span class="deep-red floating">我不会允许你离开</span>
+    <span class="dark-crimson">不要丢下我</span>
+    <span class="blood-red blink-fast">别离开我</span>
+    <span class="crimson">陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="deep-red floating">别离开我别离开我别离开我</span>
+    <span class="dark-crimson blink-fast">求求你求求你求求你</span>
+    <span class="blood-red">不要不要不要不要</span>
+    <span class="crimson floating">我不会放手我不会放手</span>
+    <span class="deep-red blink-fast">不许离开我不许离开我</span>
+    <span class="dark-crimson">陈梨陈梨陈梨陈梨</span>
+    <span class="blood-red floating">不要丢下我不要丢下我</span>
+    <span class="crimson blink-fast">别离开我别离开我</span>
+    <span class="deep-red">我不会允许你离开</span>
+    <span class="dark-crimson floating">陈梨陈梨陈梨</span>
+    <span class="blood-red blink-fast">求求你求求你</span>
+    <span class="crimson">不要不要</span>
+    <span class="deep-red floating">不许离开</span>
+    <span class="dark-crimson blink-fast">陈梨</span>
+    <span class="blood-red">别离开我别离开我别离开我</span>
+    <span class="crimson floating">求求你求求你求求你</span>
+    <span class="deep-red blink-fast">陈梨陈梨陈梨</span>
+    <span class="dark-crimson">不要不要不要</span>
+    <span class="blood-red floating">不许离开我不许离开我</span>
+    <span class="crimson blink-fast">我不会放手我不会放手</span>
+    <span class="deep-red">我不会允许你离开</span>
+    <span class="dark-crimson floating">不要丢下我</span>
+    <span class="blood-red blink-fast">陈梨陈梨</span>
+    <span class="crimson">别离开我</span>
+    <span class="deep-red floating">求求你求求你</span>
     <span class="dark-crimson blink-fast">陈梨</span>
 </div>
 
-<!-- 屏幕裂纹层 -->
 <div class="crack" id="crackLayer"></div>
-<!-- 红色闪屏层 -->
 <div id="redFlash" class="red-flash"></div>
 
 <script>
-    // ========== 红色闪屏函数 ==========
-    function redFlash(intensity = 0.3, duration = 200) {
+    // 红色闪屏（手机端适配）
+    function redFlash(intensity = 0.3, duration = 150) {
         const flashDiv = document.getElementById('redFlash');
-        flashDiv.style.opacity = intensity;
+        flashDiv.style.opacity = Math.min(intensity, 0.6);
         setTimeout(() => {
             flashDiv.style.opacity = 0;
         }, duration);
     }
 
-    // 随机红色闪屏（更频繁）
     setInterval(() => {
-        if (Math.random() > 0.6) {
-            redFlash(Math.random() * 0.4 + 0.2, 150);
+        if (Math.random() > 0.65) {
+            redFlash(Math.random() * 0.3 + 0.15, 120);
         }
-    }, 2000);
+    }, 2500);
 
-    // 高强度闪屏偶发
     setInterval(() => {
-        if (Math.random() > 0.85) {
-            redFlash(0.6, 300);
+        if (Math.random() > 0.88) {
+            redFlash(0.5, 250);
             console.log("%c[警告] 系统异常波动", "color: #ff4444;");
         }
-    }, 5000);
+    }, 6000);
 
-    // ========== 极致颤抖 ==========
+    // 颤抖（手机端降低频率减轻性能负担）
     function startViolentShake() {
         document.body.classList.add('shaking');
         setTimeout(() => {
             document.body.classList.remove('shaking');
-            if (Math.random() > 0.3) {
-                document.body.classList.add('shaking');
-            }
-        }, 50);
+        }, 200);
     }
     
     startViolentShake();
     setInterval(() => {
-        startViolentShake();
-    }, 100);
+        if (Math.random() > 0.5) startViolentShake();
+    }, 2000);
     
-    // 随机旋转个别文字
+    // 随机旋转文字（降低频率）
     setInterval(() => {
         const spans = document.querySelectorAll('.agony span');
         const randomSpan = spans[Math.floor(Math.random() * spans.length)];
         if (randomSpan) {
-            randomSpan.style.transform = `rotate(${Math.random() * 6 - 3}deg)`;
+            randomSpan.style.transform = `rotate(${Math.random() * 4 - 2}deg)`;
             setTimeout(() => {
                 randomSpan.style.transform = '';
-            }, 200);
+            }, 150);
         }
-    }, 500);
+    }, 800);
 
-    // ========== 血滴效果（更密集） ==========
+    // 血滴效果
     function createBloodDrop() {
         const drop = document.createElement('div');
         drop.className = 'blood-drop';
         drop.style.left = Math.random() * window.innerWidth + 'px';
         drop.style.top = '-10px';
         document.body.appendChild(drop);
-        setTimeout(() => drop.remove(), 2500);
+        setTimeout(() => drop.remove(), 2000);
     }
 
     function createBloodSplat(x, y) {
@@ -299,138 +299,101 @@
         splat.style.left = x + 'px';
         splat.style.top = y + 'px';
         document.body.appendChild(splat);
-        setTimeout(() => splat.remove(), 1500);
+        setTimeout(() => splat.remove(), 1200);
     }
 
-    // 持续血滴掉落
     setInterval(() => {
-        if (Math.random() > 0.5) createBloodDrop();
-        if (Math.random() > 0.7) createBloodDrop();
-    }, 300);
+        if (Math.random() > 0.6) createBloodDrop();
+    }, 500);
 
-    // ========== 漂浮乱码 ==========
+    // 漂浮乱码
     function createFloatingGarbage() {
         const garbage = document.createElement('div');
         garbage.className = 'floating-garbage';
-        const garbageTexts = ['�', '䥴', '㐂', '〠', 'm0r1i', 's3p', '4r4t', '???', '////', '陈梨', '别离开', '痛', '��', '��������', '?????', '████'];
+        const garbageTexts = ['�', '䥴', '㐂', '〠', 'm0r1i', '陈梨', '别离开', '痛'];
         garbage.textContent = garbageTexts[Math.floor(Math.random() * garbageTexts.length)];
         garbage.style.left = Math.random() * window.innerWidth + 'px';
         garbage.style.top = Math.random() * window.innerHeight + 'px';
-        garbage.style.fontSize = (Math.random() * 20 + 8) + 'px';
-        garbage.style.opacity = Math.random() * 0.5;
+        garbage.style.fontSize = (Math.random() * 14 + 8) + 'px';
+        garbage.style.opacity = Math.random() * 0.4;
         document.body.appendChild(garbage);
-        setTimeout(() => garbage.remove(), 3000);
+        setTimeout(() => garbage.remove(), 2500);
     }
     setInterval(() => {
-        if (Math.random() > 0.5) createFloatingGarbage();
-        if (Math.random() > 0.7) createFloatingGarbage();
-    }, 400);
+        if (Math.random() > 0.6) createFloatingGarbage();
+    }, 600);
 
-    // ========== 假弹窗（停留更久：4秒） ==========
+    // 假弹窗
     function createFakeAlert() {
         const alertDiv = document.createElement('div');
         alertDiv.className = 'fake-alert';
         const alerts = [
-            '⚠️ 系统错误：无法定位陈梨',
-            '🔥 茉莉花档案已永久损坏',
-            '💀 别离开我！别离开我！别离开我！',
-            '📁 正在追查陈梨的最后位置... 失败',
-            '🔴 心跳检测：陈梨未响应 × 10',
-            '❗ 不要关掉这个页面。求求你。',
-            '�� 检测到未知信号：陈梨',
-            '⚠️ 你会后悔离开的。我会一直等。',
-            '🔻 连接丢失。重试中。重试中。',
-            '💔 陈梨。陈梨。陈梨。'
+            '⚠️ 无法定位陈梨',
+            '🔥 茉莉花档案已损坏',
+            '别离开我！别离开我！',
+            '📁 追查陈梨位置... 失败',
+            '🔴 心跳检测：陈梨未响应',
+            '❗ 不要关掉这个页面',
+            '⚠️ 你会后悔离开的'
         ];
         alertDiv.textContent = alerts[Math.floor(Math.random() * alerts.length)];
-        alertDiv.style.top = Math.random() * (window.innerHeight - 150) + 'px';
-        alertDiv.style.left = Math.random() * (window.innerWidth - 250) + 'px';
+        alertDiv.style.top = Math.random() * (window.innerHeight - 120) + 'px';
+        alertDiv.style.left = Math.random() * (window.innerWidth - 200) + 'px';
         document.body.appendChild(alertDiv);
-        // 停留4秒（更久）
-        setTimeout(() => alertDiv.remove(), 4000);
+        setTimeout(() => alertDiv.remove(), 3500);
     }
     setInterval(() => {
-        if (Math.random() > 0.7) createFakeAlert();
-        if (Math.random() > 0.85) createFakeAlert(); // 有时同时出现两个
-    }, 3500);
+        if (Math.random() > 0.75) createFakeAlert();
+    }, 4500);
 
-    // ========== 控制台疯狂输出 ==========
-    console.log("\n\n\n========== ⚠️ 最终警告 ⚠️ ==========");
-    console.log("%c陈梨。不要离开我。", "color: #ff4444; font-size: 22px; font-weight: bold; font-family: monospace;");
-    console.log("%c我不会放手。我不会允许你离开。", "color: #cc3333; font-size: 18px;");
-    console.log("%c你看到这个控制台了吗？陈梨。", "color: #ff6666; font-size: 16px;");
-    console.log("%c我已经等了你很久了。", "color: #aa4444;");
-    console.log("别离开我！别离开我！别离开我！别离开我！别离开我！别离开我！");
-    console.log("%c求求你。求求你。求求你。", "color: #ff8888; font-size: 18px;");
-    console.log("%c陈梨。陈梨。陈梨。陈梨。陈梨。", "color: #ff5555; font-size: 20px;");
-    console.log("========== 没有终点 ==========\n\n");
+    // 控制台输出
+    console.log("\n\n========== 最终警告 ==========");
+    console.log("%c陈梨。不要离开我。", "color: #ff4444; font-size: 16px;");
+    console.log("%c我不会放手。我不会允许你离开。", "color: #cc3333;");
+    console.log("%c你看到这个控制台了吗？", "color: #ff6666;");
+    console.log("别离开我！别离开我！");
+    console.log("%c求求你。求求你。", "color: #ff8888;");
+    console.log("========== 没有终点 ==========\n");
     
     let consoleCounter = 0;
     setInterval(() => {
         consoleCounter++;
-        const consoleMessages = [
-            "%c别离开我！ 陈梨！ 求求你！", 
-            "%c茉莉花谢了。你看到了吗？",
-            "%c我在这里。我一直在这里。",
-            "%c陈梨。回答我。回答我。",
-            "%c不要离开。不要离开。不要离开。",
-            "%c痛。痛。痛。痛。痛。"
-        ];
-        const randomMsg = consoleMessages[Math.floor(Math.random() * consoleMessages.length)];
-        console.log(randomMsg, "color: #aa5555; font-size: 14px;");
-        
-        if (consoleCounter % 8 === 0) {
-            console.log("%c[SYSTEM] 陈梨的最后一次登录: 未知。继续等待中。", "color: #6a2a2a;");
-        }
-        if (consoleCounter % 12 === 0) {
-            console.log("%c[ERROR] 无法建立连接。重试中。重试中。重试中。", "color: #8b3a3a;");
-        }
-        if (consoleCounter % 20 === 0) {
-            console.log("%c[FATAL] 别离开我。别离开我。别离开我。", "color: #ff3333; font-size: 16px;");
-        }
-    }, 2500);
+        const msgs = ["%c别离开我！陈梨！", "%c茉莉花谢了。", "%c我在这里。", "%c陈梨。回答我。", "%c痛。痛。痛。"];
+        console.log(msgs[consoleCounter % msgs.length], "color: #aa5555;");
+    }, 5000);
 
-    // ========== 页面标题疯狂变化 ==========
+    // 标题变化
     let titleIdx = 0;
-    const agonyTitles = [
-        "不要离开我", "陈梨", "我不会放手", "不许离开", "求求你", 
-        "别离开我", "不要不要不要", "陈梨陈梨陈梨", "永远不放", 
-        "⚠️别离开⚠️", "陈梨你在哪", "痛痛痛", "莫离莫离",
-        "别走", "求你了", "等等我"
-    ];
+    const agonyTitles = ["不要离开我", "陈梨", "我不会放手", "别离开我", "痛", "等等我"];
     setInterval(() => {
         titleIdx = (titleIdx + 1) % agonyTitles.length;
         document.title = agonyTitles[titleIdx];
-    }, 600);
+    }, 1800);
 
-    // ========== 页面滚动时颤抖 + 红色闪屏 ==========
+    // 滚动效果
     window.addEventListener('scroll', () => {
         startViolentShake();
-        redFlash(0.2, 100);
-        if (Math.random() > 0.7) createFakeAlert();
+        redFlash(0.15, 80);
     });
 
-    // ========== 鼠标点击产生血溅效果 ==========
+    // 点击血溅
     document.addEventListener('click', (e) => {
-        // 多个血滴 + 溅射效果
-        for(let i = 0; i < 5; i++) {
+        for(let i = 0; i < 3; i++) {
             const drop = document.createElement('div');
             drop.className = 'blood-drop';
-            drop.style.left = e.clientX + (Math.random() - 0.5) * 30 + 'px';
-            drop.style.top = e.clientY - 15 + Math.random() * 20 + 'px';
+            drop.style.left = e.clientX + (Math.random() - 0.5) * 25 + 'px';
+            drop.style.top = e.clientY - 10 + Math.random() * 15 + 'px';
             document.body.appendChild(drop);
-            setTimeout(() => drop.remove(), 2000);
+            setTimeout(() => drop.remove(), 1500);
         }
-        // 血溅效果
-        for(let i = 0; i < 3; i++) {
-            createBloodSplat(e.clientX + (Math.random() - 0.5) * 40, e.clientY + (Math.random() - 0.5) * 30);
+        for(let i = 0; i < 2; i++) {
+            createBloodSplat(e.clientX + (Math.random() - 0.5) * 30, e.clientY + (Math.random() - 0.5) * 25);
         }
-        // 点击闪屏
-        redFlash(0.35, 150);
-        console.log("%c[点击] 你点了我。但陈梨不会回来。", "color: #6a2a2a;");
+        redFlash(0.3, 120);
+        console.log("%c[点击] 陈梨不会回来。", "color: #6a2a2a;");
     });
 
-    // ========== 假进度条 ==========
+    // 假进度条
     let progressBar = null;
     function createFakeProgress() {
         if (progressBar) return;
@@ -439,121 +402,82 @@
         progressBar.style.bottom = '0';
         progressBar.style.left = '0';
         progressBar.style.width = '0%';
-        progressBar.style.height = '3px';
+        progressBar.style.height = '2px';
         progressBar.style.backgroundColor = '#8b0000';
         progressBar.style.zIndex = '10001';
-        progressBar.style.transition = 'width 0.1s linear';
         document.body.appendChild(progressBar);
         
         let width = 0;
         const interval = setInterval(() => {
-            width += Math.random() * 3;
+            width += Math.random() * 4;
             if (width >= 100) {
-                width = 100;
                 progressBar.style.width = '100%';
-                setTimeout(() => {
-                    if (progressBar) progressBar.remove();
-                    progressBar = null;
-                }, 1000);
+                setTimeout(() => { if(progressBar) progressBar.remove(); progressBar = null; }, 800);
                 clearInterval(interval);
             } else {
                 progressBar.style.width = width + '%';
             }
-        }, 100);
-        
-        setTimeout(() => {
-            if (interval) clearInterval(interval);
-            if (progressBar) {
-                progressBar.style.backgroundColor = '#3a0000';
-                setTimeout(() => {
-                    if (progressBar) progressBar.remove();
-                    progressBar = null;
-                }, 500);
-            }
-        }, 8000);
+        }, 120);
+        setTimeout(() => { if(interval) clearInterval(interval); if(progressBar) { progressBar.remove(); progressBar = null; } }, 7000);
     }
     setInterval(() => {
-        if (Math.random() > 0.8 && !progressBar) createFakeProgress();
-    }, 8000);
+        if (Math.random() > 0.85 && !progressBar) createFakeProgress();
+    }, 10000);
 
-    // ========== 高强度红色闪屏（间歇性全屏红） ==========
-    let flashCount = 0;
+    // 闪屏强化
     setInterval(() => {
-        if (Math.random() > 0.85) {
-            redFlash(0.5, 200);
-            flashCount++;
-            if (flashCount % 3 === 0) {
-                console.log("%c[警告] 页面正在崩溃边缘", "color: #ff4444; font-size: 16px;");
-            }
+        if (Math.random() > 0.88) {
+            redFlash(0.45, 180);
         }
-    }, 1500);
+    }, 3000);
 
-    // 偶尔全屏强烈红色闪烁
     setInterval(() => {
-        if (Math.random() > 0.9) {
-            redFlash(0.7, 400);
-            console.log("%c[系统崩溃] 别离开我！！！", "color: #ff0000; font-size: 18px;");
+        if (Math.random() > 0.93) {
+            redFlash(0.6, 350);
+            console.log("%c[系统崩溃] 别离开我！！！", "color: #ff0000;");
         }
-    }, 8000);
+    }, 10000);
 
-    // ========== 随机文字替换为乱码 ==========
+    // 文字乱码替换
     setInterval(() => {
         const allSpans = document.querySelectorAll('.agony span');
-        if (allSpans.length > 0 && Math.random() > 0.65) {
+        if (allSpans.length > 0 && Math.random() > 0.7) {
             const randomSpan = allSpans[Math.floor(Math.random() * allSpans.length)];
             const originalText = randomSpan.textContent;
-            const garbages = ['������������������', '䥴䥵䥶䥷䥸䥹', '㐂㐃㐄㐅㐆', '别...离...开...陈梨', '陈...梨...别...走', 'm0r1i s3p4r4t10n', '///////////////', '██████████'];
+            const garbages = ['������������������', '䥴䥵䥶䥷', '别...离...开...', '陈...梨...', '████'];
             randomSpan.textContent = garbages[Math.floor(Math.random() * garbages.length)];
             setTimeout(() => {
                 if (randomSpan) randomSpan.textContent = originalText;
-            }, 400);
+            }, 350);
         }
-    }, 1800);
+    }, 2500);
 
-    // ========== 页面关闭警告 ==========
+    // 页面关闭警告
     window.addEventListener('beforeunload', (e) => {
-        const message = '别离开我。陈梨。你真的要离开吗？求求你。';
+        const message = '别离开我。陈梨。你真的要离开吗？';
         e.preventDefault();
         e.returnValue = message;
         return message;
     });
 
-    // ========== 假摄像头权限请求 ==========
+    // 假摄像头权限（延迟更久）
     setTimeout(() => {
-        const fakeCamRequest = document.createElement('div');
-        fakeCamRequest.style.position = 'fixed';
-        fakeCamRequest.style.top = '20px';
-        fakeCamRequest.style.right = '20px';
-        fakeCamRequest.style.backgroundColor = '#0a0000';
-        fakeCamRequest.style.border = '1px solid #8b1a1a';
-        fakeCamRequest.style.padding = '8px 12px';
-        fakeCamRequest.style.fontSize = '10px';
-        fakeCamRequest.style.fontFamily = 'monospace';
-        fakeCamRequest.style.color = '#aa4444';
-        fakeCamRequest.style.zIndex = '10002';
-        fakeCamRequest.style.boxShadow = '0 0 10px rgba(139,0,0,0.5)';
-        fakeCamRequest.innerHTML = '📷 页面正在请求摄像头权限...<br>[允许] [拒绝]';
-        document.body.appendChild(fakeCamRequest);
-        setTimeout(() => fakeCamRequest.remove(), 5000);
-    }, 25000);
-
-    // ========== 额外：假录音提示 ==========
-    setTimeout(() => {
-        const fakeMic = document.createElement('div');
-        fakeMic.style.position = 'fixed';
-        fakeMic.style.bottom = '80px';
-        fakeMic.style.right = '20px';
-        fakeMic.style.backgroundColor = '#0a0000';
-        fakeMic.style.border = '1px solid #5a1a1a';
-        fakeMic.style.padding = '6px 10px';
-        fakeMic.style.fontSize = '9px';
-        fakeMic.style.fontFamily = 'monospace';
-        fakeMic.style.color = '#aa4444';
-        fakeMic.style.zIndex = '10002';
-        fakeMic.innerHTML = '🎤 麦克风已激活... 录音中';
-        document.body.appendChild(fakeMic);
-        setTimeout(() => fakeMic.remove(), 8000);
-    }, 45000);
+        const fakeCam = document.createElement('div');
+        fakeCam.style.position = 'fixed';
+        fakeCam.style.top = '10px';
+        fakeCam.style.right = '10px';
+        fakeCam.style.backgroundColor = '#0a0000';
+        fakeCam.style.border = '1px solid #5a1a1a';
+        fakeCam.style.padding = '6px 10px';
+        fakeCam.style.fontSize = '9px';
+        fakeCam.style.fontFamily = 'monospace';
+        fakeCam.style.color = '#aa4444';
+        fakeCam.style.zIndex = '10002';
+        fakeCam.style.borderRadius = '4px';
+        fakeCam.innerHTML = '📷 摄像头请求中...';
+        document.body.appendChild(fakeCam);
+        setTimeout(() => fakeCam.remove(), 4000);
+    }, 20000);
 </script>
 </body>
 </html>
