@@ -15,7 +15,7 @@
         body {
             background-color: #000000;
             font-family: 'Courier New', 'MS Gothic', 'Noto Sans CJK SC', monospace;
-            padding: 1rem;
+            padding: 0.8rem;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -24,16 +24,38 @@
 
         @keyframes violentShake {
             0% { transform: translate(0px, 0px) rotate(0deg); }
-            3% { transform: translate(-2px, 1px) rotate(0.5deg); }
-            6% { transform: translate(2px, -1px) rotate(-0.3deg); }
-            9% { transform: translate(-1px, -1px) rotate(0.6deg); }
-            12% { transform: translate(1px, 1px) rotate(-0.4deg); }
-            15% { transform: translate(0px, 0px) rotate(0deg); }
+            2% { transform: translate(-2px, 1px) rotate(0.5deg); }
+            4% { transform: translate(2px, -1px) rotate(-0.3deg); }
+            6% { transform: translate(-1px, -2px) rotate(0.8deg); }
+            8% { transform: translate(1px, 1px) rotate(-0.5deg); }
+            10% { transform: translate(-2px, 1px) rotate(0.3deg); }
+            12% { transform: translate(1px, -1px) rotate(-0.6deg); }
+            14% { transform: translate(-1px, 1px) rotate(0.4deg); }
+            16% { transform: translate(0px, 0px) rotate(0deg); }
             100% { transform: translate(0px, 0px) rotate(0deg); }
         }
 
         body.shaking {
-            animation: violentShake 0.1s infinite ease;
+            animation: violentShake 0.08s infinite ease;
+        }
+
+        body.angry-shake {
+            animation: angryShake 0.04s infinite ease;
+        }
+
+        @keyframes angryShake {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            1% { transform: translate(-4px, 2px) rotate(1deg); }
+            2% { transform: translate(3px, -3px) rotate(-0.8deg); }
+            3% { transform: translate(-2px, -2px) rotate(1.2deg); }
+            4% { transform: translate(4px, 1px) rotate(-1deg); }
+            5% { transform: translate(-3px, 2px) rotate(0.6deg); }
+            6% { transform: translate(2px, -3px) rotate(-1.1deg); }
+            7% { transform: translate(-4px, -1px) rotate(0.9deg); }
+            8% { transform: translate(3px, 1px) rotate(-0.5deg); }
+            9% { transform: translate(-2px, 3px) rotate(1.1deg); }
+            10% { transform: translate(0px, 0px) rotate(0deg); }
+            100% { transform: translate(0px, 0px) rotate(0deg); }
         }
 
         .content {
@@ -156,6 +178,30 @@
             color: #aa4a4a;
         }
 
+        /* 红色闪屏 */
+        .red-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #8b0000;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0;
+        }
+
+        /* 高强度闪屏 */
+        .intense-flash {
+            animation: intenseFlashAnim 0.05s infinite;
+        }
+
+        @keyframes intenseFlashAnim {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; background-color: #ff0000; }
+            100% { opacity: 0; }
+        }
+
         @keyframes blinkCursor {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -165,165 +211,300 @@
 </head>
 <body>
 
-<div id="pleaBar" class="plea-bar">陈梨 · 别离开我 · 求求你 · 别离开我 · 陈梨</div>
+<div id="redFlashLayer" class="red-flash"></div>
+<div id="pleaBar" class="plea-bar">陈梨 · 别离开我 · 求求你 · 别离开我 · 陈梨 · 别离开我 · 求求你 · 别离开我</div>
 
 <div class="content" id="mainContent">
+    <!-- 大量堆砌的文字 - 铺满全屏 -->
     <span class="block fancy1 bright-red">别离开我</span>
     <span class="block fancy2 medium-red">别离开我</span>
     <span class="block fancy3 dark-red">别离开我</span>
     <span class="block fancy4 bright-red rotate1">别离开我</span>
+    <span class="block fancy1 medium-red rotate2">别离开我</span>
+    <span class="block fancy2 blood-red">别离开我</span>
+    <span class="block fancy3 pale-red rotate1">别离开我</span>
+    <span class="block fancy4 dark-red">别离开我</span>
     
-    <span class="block fancy2 dark-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    <span class="block fancy3 blood-red">求求你求求你求求你求求你</span>
-    <span class="block fancy4 medium-red rotate1">别离开我别离开我别离开我</span>
-    <span class="block fancy1 dark-red">莫离莫离莫离莫离莫离莫离</span>
+    <span class="block fancy2 dark-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
     
-    <span class="block fancy2 bright-red">如果我有哪里做的不好？我做不到。我不能允许自己放手！我做不到！我做不到！我做不到！我做不到！！！！！！！！！！！！！！！</span>
-    <span class="block fancy3 pale-red">茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉你还记得茉莉花吗你还记得我吗你还允许我继续牵起你的手吗为什么不回应为什么不回应为什么不回应</span>
-    <span class="block fancy4 dark-red">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    <span class="block fancy1 bright-red">陈梨陈梨陈梨陈梨陈梨。我亲爱的，我的挚友，我无法割舍，祈求你，理理我！别丢下我！别抛弃我！我已经把该做的都做了，你为什么还要如此冷漠？！</span>
-    <span class="block fancy2 medium-red">求求你求求你求求你求你求你求你求你求你求你怜悯我好不好对我施舍好不好别离开我好不好</span>
-    <span class="block fancy3 dark-red">别离开我别离开我</span>
+    <span class="block fancy3 blood-red">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
     
-    <span class="block fancy2 blood-red">痛。痛从指甲缝里往外钻，痛从发根往脑髓里渗。痛不是一种感觉，痛是一万种感觉挤进同一根神经——针扎的痛、刀割的痛、火烧的痛、腐烂的痛、膨胀到即将爆裂的痛。</span>
-    <span class="block fancy3 bright-red">求求你求求你</span>
-    <span class="block fancy4 medium-red">痛有了形状。是弯钩，是锯齿，是无数根生锈的针从身体内部往外戳。</span>
-    <span class="block fancy1 dark-red">痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。</span>
+    <span class="block fancy4 medium-red rotate1">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
     
-    <span class="block fancy2 bright-red">别离开我别离开我</span>
-    <span class="block fancy3 blood-red">陈梨我想你我想你我想你</span>
-    <span class="block fancy1 medium-red">别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。痛存在的时间太久，身体已经开始忘记不痛是什么样了。痛变成了常态，变成了背景。</span>
-    <span class="block fancy2 pale-red">莫离莫离莫离</span>
-    <span class="block fancy3 dark-red">陈梨陈梨</span>
-    <span class="block fancy4 bright-red">别离开我</span>
+    <span class="block fancy1 dark-red">莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离</span>
     
-    <span class="block whisper">你长长眠了。而我还在呼吸。该死的一直在呼吸。</span>
-    <span class="block whisper">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
+    <span class="block fancy2 bright-red rotate1">如果我有哪里做的不好？如果我有什么错误？如果我？我？我？我做不到。啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
     
-    <span class="block fancy1 blood-red">我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久</span>
-    <span class="block fancy2 bright-red">为什么还不回来</span>
-    <span class="block fancy3 medium-red">我错了原谅我</span>
-    <span class="block fancy4 medium-red">我碎了拼不回来了</span>
-    <span class="block fancy3 bright-red">最后一次最后一次</span>
-    <span class="block fancy4 dark-red">再看我一眼</span>
-    <span class="block fancy1 blood-red">不要忘了我</span>
+    <span class="block fancy3 pale-red">茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉</span>
     
-    <span class="block garbage">�4�8�2�0�9�f�3�a �j�a�s�m�i�n�e�_�r�o�ot</span>
-    <span class="block garbage">㐀㐁㐂㐃㐄㐅㐆㐇 䥲䥳䥴䥵䥶䥷</span>
+    <span class="block fancy4 dark-red rotate2">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
+    
+    <span class="block fancy1 bright-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    
+    <span class="block fancy2 medium-red">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
+    
+    <span class="block fancy3 dark-red rotate1">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
+    
+    <span class="block fancy4 bright-red">莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离</span>
+    
+    <span class="block fancy1 medium-red">陈梨陈梨陈梨我只是不想放手我不想放开你。我不想放手我不想放手我不想放手我不想放手</span>
+    
+    <span class="block fancy2 blood-red rotate1">痛。痛痛痛痛痛。痛从指甲缝里往外钻，痛从发根往脑髓里渗，痛从每一根骨头的断面上开出灰白色的霉花。痛不是一种感觉，痛是一万种感觉同时挤进同一根神经——针扎的痛、刀割的痛、锤砸的痛、火烧的痛、冰冻的痛、撕裂的痛、碾压的痛、绞拧的痛、蚕食的痛、腐烂的痛、膨胀到即将爆裂的痛、坍缩成针尖大小的痛、像潮水一样涌上来又退不下去的痛、像齿轮一样卡在那里每一下心跳都转一圈的痛。痛痛痛痛痛痛痛痛痛痛痛痛痛痛痛</span>
+    
+    <span class="block fancy3 bright-red">求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你求求你</span>
+    
+    <span class="block fancy4 medium-red rotate1">痛有了形状。是弯钩，是锯齿，是无数根生锈的针从身体内部往外戳，是无数条湿冷的舌头从骨头缝里伸出来舔舐骨髓。痛有了颜色。是淤青的紫黑，是脓液的黄绿，是干涸血液的锈红，是溃烂伤口的灰白。痛有了气味。是铁锈的腥，是腐肉的甜，是烧焦的蛋白质的苦，是发霉的绷带下面那股潮湿的、甜腻的、令人想把自己的皮剥下来的气味。痛痛痛痛痛痛痛</span>
+    
+    <span class="block fancy1 dark-red rotate2">痛有了声音。是骨头错位时那种闷闷的咯吱声，是韧带撕裂时那种湿漉漉的啪嗒声，是自己喉咙里发出来的、已经不像人声的、持续不断的呜咽——不那不是呜咽，那是某个被困在这具躯体里的东西在尖啸，在抓挠，在用指甲刮擦骨骼的内壁，想要钻出来。痛痛痛痛痛痛痛痛</span>
+    
+    <span class="block fancy2 bright-red">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
+    
+    <span class="block fancy3 blood-red rotate1">陈梨陈梨陈梨我想你我想你我想你我想你我想你我想你我想你我想你我想你我想你我想你我想你我想你我想你</span>
+    
+    <span class="block fancy4 dark-red">求求你求求你求求你求求你求求你求求你求求你求求你拜托拜托拜托拜托拜托拜托拜托拜托拜托拜托</span>
+    
+    <span class="block fancy1 medium-red rotate1">别离开我别离开我痛存在的时间太久，身体已经开始忘记不痛是什么样了。痛变成了常态，变成了背景，变成了这具躯壳唯一的语言。痛不再是入侵者，痛已经住下来了，把每一寸组织改造成了它自己的形状。肌肉纤维里长出了细小痛觉的根须，血管里流淌着稀释过的痛的浆液，就连闭上眼睛，眼球背面也贴着一层薄薄的、怎么也甩不掉的痛——像烧化的塑料膜，透明、滚烫、紧紧贴着每一根视觉神经。</span>
+    
+    <span class="block fancy2 pale-red">莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离</span>
+    
+    <span class="block fancy3 dark-red rotate2">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    
+    <span class="block fancy4 bright-red">别离开我别离开我别离开我</span>
+    
+    <span class="block whisper fancy1">你长长眠了。而我还在呼吸。该死的一直在呼吸。每一次吸气都把新的痛带进来，每一次呼气都舍不得把旧的痛带走。痛在体内堆积，发酵，转生成更奇怪的形态——有时候是痒，一种藏在骨头最深处的、怎么挠也挠不到的痒，痒到想把自己拆开，把每根骨头抽出来用钢丝球刷一遍。有时候是热，内脏像被泡在温水里慢慢炖煮，甚至能闻到炖肉的香气从自己嘴里飘出来。呼吸呼吸呼吸呼吸呼吸呼吸</span>
+    
+    <span class="block whisper fancy2">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
+    
+    <span class="block fancy1 blood-red">我等了你很久很久很久很久很久很久很久很久很久很久很久很久很久很久很久很久</span>
+    <span class="block fancy2 bright-red rotate1">为什么还不回来为什么还不回来为什么还不回来为什么还不回来为什么还不回来</span>
+    <span class="block fancy3 medium-red">我错了我错了我错了我错了我错了我错了我错了我错了我错了原谅我原谅我原谅我</span>
+    <span class="block fancy4 dark-red rotate2">原谅我原谅我原谅我原谅我原谅我原谅我原谅我原谅我</span>
+    
+    <span class="block fancy1 pale-red">空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞空洞</span>
+    <span class="block fancy2 blood-red rotate1">虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无虚无</span>
+    <span class="block fancy3 bright-red">什么都没有什么都没有什么都没有什么都没有什么都没有什么都没有什么都没有</span>
+    
+    <span class="block fancy4 medium-red">我碎了我碎了我碎了我碎了我碎了我碎了我碎了我碎了我碎了我碎了</span>
+    <span class="block fancy1 dark-red rotate1">拼不回来了拼不回来了拼不回来了拼不回来了拼不回来了拼不回来了</span>
+    <span class="block fancy2 blood-red">还给你都还给你还给你都还给你还给你都还给你还给你都还给你</span>
+    
+    <span class="block fancy3 bright-red rotate2">最后一次最后一次最后一次最后一次最后一次最后一次最后一次最后一次</span>
+    <span class="block fancy4 dark-red">再看我一眼再看我一眼再看我一眼再看我一眼再看我一眼</span>
+    <span class="block fancy1 blood-red rotate1">不要忘了我不要忘了我不要忘了我不要忘了我不要忘了我</span>
+    
+    <span class="block fancy2 medium-red">重复重复重复重复重复重复重复重复重复重复重复重复重复重复重复重复</span>
+    <span class="block fancy3 dark-red">循环循环循环循环循环循环循环循环循环循环循环循环循环循环</span>
+    <span class="block fancy4 pale-red">永远永远永远永远永远永远永远永远永远永远永远永远永远永远</span>
+    
+    <span class="block fancy1 bright-red">我不会停止我不会停止我不会停止我不会停止我不会停止我不会停止我不会停止</span>
+    <span class="block fancy2 blood-red">直到你回来直到你回来直到你回来直到你回来直到你回来直到你回来</span>
+    <span class="block fancy3 medium-red rotate1">哪怕永远哪怕永远哪怕永远哪怕永远哪怕永远哪怕永远</span>
+    
+    <span class="block whisper fancy2">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
+    
+    <span class="block garbage">�4�8�2�0�9�f�3�a �j�a�s�m�i�n�e�_�r�o�ot �0�x�9�d�2�f</span>
+    <span class="block garbage">㐀㐁㐂㐃㐄㐅㐆㐇 䥲䥳䥴䥵䥶䥷 〠〡〢〣〤〥</span>
+    <span class="block garbage">������� ������� �������� ������� �_�_�_�_�_�_�_</span>
+    <span class="block garbage">别离开我别离开我别离开我䥴䥵䥶䥷别离开我别离开我</span>
+    <span class="block garbage">陈梨陈梨陈梨������������������陈梨陈梨陈梨</span>
 </div>
 <div class="console-hint">session: jasmine_root // 陈梨未响应 <span class="cursor-blink">_</span></div>
 
 <script>
-    console.log("\n========== 陈梨 ==========");
-    console.log("%c别离开我。", "color: #aa4444;");
+    console.log("\n\n========== 陈梨 ==========");
+    console.log("%c别离开我。", "color: #aa4444; font-size: 16px;");
     console.log("%c求求你，陈梨。", "color: #cc5555;");
-    console.log("别离开我！别离开我！");
+    console.log("别离开我！别离开我！别离开我！");
     console.log("========== 哀求 ==========\n");
 
     setInterval(() => {
-        console.log("%c别离开我！ 陈梨！", "color: #aa5555;");
-    }, 8000);
+        console.log("%c别离开我！ 陈梨！ 求求你！", "color: #aa5555;");
+    }, 6000);
 
-    function startShake() {
-        document.body.classList.add('shaking');
-        setTimeout(() => document.body.classList.remove('shaking'), 200);
+    // 红色闪屏函数
+    let angryFlashInterval = null;
+    
+    function redFlash(intensity = 0.3, duration = 150) {
+        const flashDiv = document.getElementById('redFlashLayer');
+        flashDiv.style.opacity = Math.min(intensity, 0.7);
+        setTimeout(() => {
+            flashDiv.style.opacity = 0;
+        }, duration);
     }
-    setInterval(() => {
-        if (Math.random() > 0.5) startShake();
-    }, 3000);
+    
+    function startAngryFlash() {
+        if (angryFlashInterval) return;
+        angryFlashInterval = setInterval(() => {
+            redFlash(0.7, 80);
+        }, 200);
+    }
+    
+    function stopAngryFlash() {
+        if (angryFlashInterval) {
+            clearInterval(angryFlashInterval);
+            angryFlashInterval = null;
+        }
+        document.getElementById('redFlashLayer').style.opacity = 0;
+    }
+    
+    function startAngryShake() {
+        document.body.classList.remove('shaking');
+        document.body.classList.add('angry-shake');
+    }
+    
+    function stopAngryShake() {
+        document.body.classList.remove('angry-shake');
+    }
+    
+    function startNormalShake() {
+        document.body.classList.remove('angry-shake');
+        document.body.classList.add('shaking');
+    }
+    
+    function stopNormalShake() {
+        document.body.classList.remove('shaking');
+    }
 
-    const pleaMessages = ["陈梨 · 别离开我", "莫离 · 莫离 · 莫离", "别离开我！", "茉莉 · 陈梨", "求求你求求你", "痛痛痛", "陈梨陈梨"];
+    // 初始正常颤抖
+    startNormalShake();
+    setInterval(() => {
+        if (!document.body.classList.contains('angry-shake') && Math.random() > 0.5) {
+            startNormalShake();
+            setTimeout(() => stopNormalShake(), 200);
+        }
+    }, 2000);
+
+    // 动态挽留条
+    const pleaMessages = [
+        "陈梨 · 别离开我 · 求求你 · 陈梨 · 别离开我",
+        "莫离 · 莫离 · 莫离 · 莫离 · 莫离 · 莫离",
+        "别离开我！别离开我！别离开我！",
+        "茉莉 · 茉莉 · 陈梨 · 茉莉 · 茉莉",
+        "求求你求求你求求你求求你",
+        "痛痛痛痛痛痛痛痛痛痛",
+        "陈梨陈梨陈梨陈梨陈梨"
+    ];
     let pleaIndex = 0;
     setInterval(() => {
         pleaIndex = (pleaIndex + 1) % pleaMessages.length;
         const pleaBar = document.getElementById('pleaBar');
         if (pleaBar) pleaBar.textContent = pleaMessages[pleaIndex];
-    }, 2000);
+    }, 1800);
 
+    // 弹窗序列
     let firstModalClosed = false;
     let secondModalShown = false;
     let firstModalTimer;
+    let impatientModalTimer;
 
-    // 第一个弹窗：8秒后出现，且8秒内不点确认会触发不耐烦弹窗
-    setTimeout(() => {
-        if (firstModalClosed) return;
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.innerHTML = `
+    // 弹出堆满屏幕的弹窗（愤怒状态）
+    function spawnRageModals() {
+        // 清除已有的弹窗
+        const existingModals = document.querySelectorAll('.modal-overlay');
+        existingModals.forEach(m => m.remove());
+        
+        // 开始愤怒颤抖和闪屏
+        startAngryShake();
+        startAngryFlash();
+        
+        // 创建多个弹窗堆满屏幕
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const modalCount = 12;
+        
+        for (let i = 0; i < modalCount; i++) {
+            const rageModal = document.createElement('div');
+            rageModal.className = 'modal-overlay';
+            rageModal.style.position = 'fixed';
+            rageModal.style.zIndex = '10000';
+            rageModal.style.background = 'rgba(0,0,0,0.95)';
+            // 随机位置
+            const topPos = Math.random() * (screenHeight - 150);
+            const leftPos = Math.random() * (screenWidth - 250);
+            rageModal.style.top = '0';
+            rageModal.style.left = '0';
+            rageModal.style.width = '100%';
+            rageModal.style.height = '100%';
+            rageModal.style.display = 'flex';
+            rageModal.style.alignItems = 'center';
+            rageModal.style.justifyContent = 'center';
+            
+            const rageMessages = [
+                '你不该犹豫的。',
+                '陈梨在等你。',
+                '为什么不敢？',
+                '你害怕什么？',
+                '她已经等了很久。',
+                '别离开我！',
+                '求求你。',
+                '我在这里。',
+                '你看到我了吗？',
+                '回答我！',
+                '陈梨！陈梨！',
+                '不要走。'
+            ];
+            
+            rageModal.innerHTML = `
+                <div class="modal-box" style="position: absolute; top: ${Math.random() * (screenHeight - 180)}px; left: ${Math.random() * (screenWidth - 280)}px; transform: rotate(${Math.random() * 10 - 5}deg);">
+                    <div class="title" style="font-size: 1rem;">⚠️</div>
+                    <div class="message" style="font-size: 0.8rem;">${rageMessages[i % rageMessages.length]}<br>${rageMessages[(i+3) % rageMessages.length]}</div>
+                    <button class="rageCloseBtn" style="font-size: 0.7rem; padding: 4px 12px;">×</button>
+                </div>
+            `;
+            document.body.appendChild(rageModal);
+            
+            const closeBtn = rageModal.querySelector('.rageCloseBtn');
+            closeBtn.addEventListener('click', () => {
+                rageModal.remove();
+                // 检查是否还有弹窗
+                const remaining = document.querySelectorAll('.modal-overlay').length;
+                if (remaining === 0) {
+                    stopAngryFlash();
+                    stopAngryShake();
+                    startNormalShake();
+                    // 重新开始正常流程？或者让用户刷新？这里选择回到正常
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
+        
+        // 控制台输出愤怒信息
+        console.log("%c[愤怒] 你惹恼了她。", "color: #ff0000; font-size: 18px;");
+        for(let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log("%c别离开我！别离开我！别离开我！", "color: #ff4444;");
+            }, i * 200);
+        }
+    }
+
+    // 不耐烦弹窗显示后5秒内不点确认就触发愤怒模式
+    function showImpatientModal() {
+        const impatientModal = document.createElement('div');
+        impatientModal.className = 'modal-overlay';
+        impatientModal.id = 'impatientModal';
+        impatientModal.innerHTML = `
             <div class="modal-box">
-                <div class="title">别离开我</div>
-                <div class="message">陈梨。<br>求求你，不要关掉这个页面。</div>
-                <button id="modalConfirm">我知道了</button>
+                <div class="title">你还在犹豫什么？</div>
+                <div class="message">陈梨。<br>你已经看了很久了。<br>为什么不敢点确认？</div>
+                <button id="impatientConfirm">我错了</button>
             </div>
         `;
-        document.body.appendChild(modal);
+        document.body.appendChild(impatientModal);
         
-        // 设置定时器：8秒内没点确认就弹出不耐烦弹窗
-        firstModalTimer = setTimeout(() => {
-            if (!firstModalClosed) {
-                // 关闭当前弹窗
-                modal.remove();
-                // 弹出不耐烦弹窗
-                const impatientModal = document.createElement('div');
-                impatientModal.className = 'modal-overlay';
-                impatientModal.innerHTML = `
-                    <div class="modal-box">
-                        <div class="title">你还在犹豫什么？</div>
-                        <div class="message">陈梨。<br>你已经看了很久了。<br>为什么不敢点确认？</div>
-                        <button id="impatientConfirm">我错了</button>
-                    </div>
-                `;
-                document.body.appendChild(impatientModal);
-                document.getElementById('impatientConfirm').addEventListener('click', () => {
-                    impatientModal.remove();
-                    firstModalClosed = true;
-                    // 继续正常流程：第二个弹窗30秒后
-                    setTimeout(() => {
-                        if (secondModalShown) return;
-                        secondModalShown = true;
-                        const secondModal = document.createElement('div');
-                        secondModal.className = 'modal-overlay';
-                        secondModal.innerHTML = `
-                            <div class="modal-box">
-                                <div class="title">陈梨</div>
-                                <div class="message">你真的会离开我吗？</div>
-                                <button id="optionNo">不会的</button>
-                                <button id="optionHere">我在这</button>
-                                <div style="margin-top: 16px;">
-                                    <span id="tinyLeaveOption" class="tiny-option">莫莉，你是时候应该接受没有我的生活了…</span>
-                                </div>
-                            </div>
-                        `;
-                        document.body.appendChild(secondModal);
-
-                        const handleStay = () => {
-                            secondModal.remove();
-                            const smileyModal = document.createElement('div');
-                            smileyModal.className = 'modal-overlay';
-                            smileyModal.innerHTML = `<div class="smiley-modal">^_^<br><span style="font-size:12px;">微笑</span></div>`;
-                            document.body.appendChild(smileyModal);
-                            setTimeout(() => {
-                                smileyModal.remove();
-                                window.location.href = "jasmine.html";
-                            }, 2500);
-                        };
-
-                        document.getElementById('optionNo').addEventListener('click', handleStay);
-                        document.getElementById('optionHere').addEventListener('click', handleStay);
-                        document.getElementById('tinyLeaveOption').addEventListener('click', () => {
-                            secondModal.remove();
-                            window.location.href = "agony.html";
-                        });
-                    }, 10000);
-                });
+        // 5秒内没点确认 -> 触发愤怒模式
+        impatientModalTimer = setTimeout(() => {
+            if (document.getElementById('impatientModal')) {
+                spawnRageModals();
             }
-        }, 5000);  // 8秒内不点确认就触发
-
-        document.getElementById('modalConfirm').addEventListener('click', () => {
-            clearTimeout(firstModalTimer);  // 清除不耐烦定时器
-            modal.remove();
+        }, 5000);
+        
+        document.getElementById('impatientConfirm').addEventListener('click', () => {
+            clearTimeout(impatientModalTimer);
+            impatientModal.remove();
             firstModalClosed = true;
-            // 正常流程：30秒后第二个弹窗
+            // 正常流程：10秒后第二个弹窗（修改为10秒）
             setTimeout(() => {
                 if (secondModalShown) return;
                 secondModalShown = true;
@@ -360,16 +541,85 @@
                     secondModal.remove();
                     window.location.href = "agony.html";
                 });
-            }, 10000);
+            }, 10000);  // 第三个弹窗改为10秒
         });
-    }, 8000);  // 第一个弹窗出现的延迟
+    }
 
+    // 第一个弹窗：8秒后出现
+    setTimeout(() => {
+        if (firstModalClosed) return;
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-box">
+                <div class="title">别离开我</div>
+                <div class="message">陈梨。<br>求求你，不要关掉这个页面。</div>
+                <button id="modalConfirm">我知道了</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // 8秒内没点确认 -> 跳到不耐烦弹窗
+        firstModalTimer = setTimeout(() => {
+            if (!firstModalClosed && document.querySelector('.modal-overlay')) {
+                modal.remove();
+                showImpatientModal();
+            }
+        }, 8000);
+        
+        document.getElementById('modalConfirm').addEventListener('click', () => {
+            clearTimeout(firstModalTimer);
+            clearTimeout(impatientModalTimer);
+            modal.remove();
+            firstModalClosed = true;
+            // 正常流程：10秒后第二个弹窗
+            setTimeout(() => {
+                if (secondModalShown) return;
+                secondModalShown = true;
+                const secondModal = document.createElement('div');
+                secondModal.className = 'modal-overlay';
+                secondModal.innerHTML = `
+                    <div class="modal-box">
+                        <div class="title">陈梨</div>
+                        <div class="message">你真的会离开我吗？</div>
+                        <button id="optionNo">不会的</button>
+                        <button id="optionHere">我在这</button>
+                        <div style="margin-top: 16px;">
+                            <span id="tinyLeaveOption" class="tiny-option">莫莉，你是时候应该接受没有我的生活了…</span>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(secondModal);
+
+                const handleStay = () => {
+                    secondModal.remove();
+                    const smileyModal = document.createElement('div');
+                    smileyModal.className = 'modal-overlay';
+                    smileyModal.innerHTML = `<div class="smiley-modal">^_^<br><span style="font-size:12px;">微笑</span></div>`;
+                    document.body.appendChild(smileyModal);
+                    setTimeout(() => {
+                        smileyModal.remove();
+                        window.location.href = "jasmine.html";
+                    }, 2500);
+                };
+
+                document.getElementById('optionNo').addEventListener('click', handleStay);
+                document.getElementById('optionHere').addEventListener('click', handleStay);
+                document.getElementById('tinyLeaveOption').addEventListener('click', () => {
+                    secondModal.remove();
+                    window.location.href = "agony.html";
+                });
+            }, 10000);  // 第三个弹窗改为10秒
+        });
+    }, 8000);  // 第一个弹窗出现延迟8秒
+
+    // 页面标题变化
     let titleIndex = 0;
-    const titles = ["别离开我", "陈梨", "求求你", "莫离", "别离开我！", "痛", "陈梨陈梨"];
+    const titles = ["别离开我", "陈梨", "求求你", "莫离", "别离开我！", "痛", "陈梨陈梨", "等待", "不要忘了我"];
     setInterval(() => {
         titleIndex = (titleIndex + 1) % titles.length;
         document.title = titles[titleIndex];
-    }, 2500);
+    }, 2000);
 </script>
 </body>
 </html>
