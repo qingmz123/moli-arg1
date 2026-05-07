@@ -22,63 +22,38 @@
             font-size: 16px;
         }
 
-        /* 更剧烈的颤抖动画 - 手机适配 */
         @keyframes violentShake {
             0% { transform: translate(0px, 0px) rotate(0deg); }
-            2% { transform: translate(-2px, 1px) rotate(0.5deg); }
-            4% { transform: translate(2px, -1px) rotate(-0.3deg); }
-            6% { transform: translate(-1px, -2px) rotate(0.8deg); }
-            8% { transform: translate(1px, 1px) rotate(-0.5deg); }
-            10% { transform: translate(-2px, 1px) rotate(0.2deg); }
-            12% { transform: translate(1px, -1px) rotate(-0.7deg); }
-            14% { transform: translate(-1px, 2px) rotate(0.3deg); }
-            16% { transform: translate(0px, 1px) rotate(-0.1deg); }
-            18% { transform: translate(1px, -1px) rotate(0.4deg); }
-            20% { transform: translate(0px, 0px) rotate(0deg); }
+            3% { transform: translate(-2px, 1px) rotate(0.5deg); }
+            6% { transform: translate(2px, -1px) rotate(-0.3deg); }
+            9% { transform: translate(-1px, -1px) rotate(0.6deg); }
+            12% { transform: translate(1px, 1px) rotate(-0.4deg); }
+            15% { transform: translate(0px, 0px) rotate(0deg); }
             100% { transform: translate(0px, 0px) rotate(0deg); }
         }
 
         body.shaking {
-            animation: violentShake 0.08s infinite ease;
+            animation: violentShake 0.1s infinite ease;
         }
 
         .content {
             max-width: 100%;
             margin: 0 auto;
-            font-size: clamp(14px, 4vw, 18px);
-            line-height: 1.9;
+            font-size: clamp(14px, 4.5vw, 20px);
+            line-height: 1.8;
             color: #8b1a1a;
             word-break: break-all;
             white-space: normal;
             padding: 0.5rem 0;
         }
 
-        .block {
-            display: inline;
-        }
+        .block { display: inline; }
+        .fancy1 { font-family: 'Courier New', monospace; text-shadow: 0 0 2px #8b0000; }
+        .fancy2 { font-family: 'Impact', monospace; letter-spacing: 1px; text-shadow: 0.5px 0.5px 0 #5a0000; }
+        .fancy3 { font-family: 'Brush Script MT', cursive; font-style: italic; text-shadow: 0 0 2px #aa2222; }
+        .fancy4 { font-family: monospace; font-weight: bold; text-shadow: 0px 0px 1px #ff4444; }
 
-        /* 字体样式保留但更柔和 */
-        .fancy1 {
-            font-family: 'Courier New', 'MS Gothic', '华文楷书', 'KaiTi', monospace;
-            text-shadow: 0 0 2px #8b0000;
-        }
-        .fancy2 {
-            font-family: 'Franklin Gothic Heavy', 'Impact', 'Arial Black', monospace;
-            letter-spacing: 1px;
-            text-shadow: 0.5px 0.5px 0 #5a0000;
-        }
-        .fancy3 {
-            font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
-            font-style: italic;
-            text-shadow: 0 0 2px #aa2222;
-        }
-        .fancy4 {
-            font-family: 'Segoe UI', 'Noto Sans CJK SC', monospace;
-            font-weight: bold;
-            text-shadow: 0px 0px 1px #ff4444;
-        }
-
-        .dark-red { color: #4a0f0f; text-shadow: none; }
+        .dark-red { color: #4a0f0f; }
         .medium-red { color: #7a2020; }
         .bright-red { color: #aa3030; }
         .blood-red { color: #cc3333; text-shadow: 0 0 2px #ff000044; }
@@ -86,40 +61,10 @@
 
         .rotate1 { display: inline-block; transform: rotate(-1deg); }
         .rotate2 { display: inline-block; transform: rotate(1deg); }
-        .rotate3 { display: inline-block; transform: rotate(-0.5deg); }
+        .whisper { color: #3a0a0a; font-size: 0.8rem; }
+        .garbage { color: #2a0606; font-size: 0.7rem; user-select: none; }
 
-        .whisper {
-            color: #3a0a0a;
-            font-size: 0.8rem;
-        }
-
-        .garbage {
-            color: #2a0606;
-            font-size: 0.7rem;
-            user-select: none;
-            font-family: 'Segoe UI Symbol', 'MS Gothic', monospace;
-        }
-
-        .glitch-text {
-            position: relative;
-            display: inline-block;
-        }
-
-        .glitch-text::before {
-            content: attr(data-text);
-            position: absolute;
-            left: -1px;
-            top: -1px;
-            color: #8b2a2a;
-            opacity: 0.5;
-            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-            pointer-events: none;
-        }
-
-        ::selection {
-            background: #8b0000;
-            color: #000000;
-        }
+        ::selection { background: #8b0000; color: #000000; }
 
         .console-hint {
             position: fixed;
@@ -127,8 +72,6 @@
             right: 6px;
             font-size: 8px;
             color: #1a0505;
-            background: transparent;
-            font-family: monospace;
             z-index: 99;
         }
 
@@ -144,11 +87,8 @@
             font-size: 10px;
             color: #6a2a2a;
             z-index: 100;
-            transition: opacity 0.3s;
-            font-family: monospace;
             white-space: nowrap;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .modal-overlay {
@@ -176,8 +116,8 @@
         }
 
         .modal-box .title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
             color: #bb5555;
         }
 
@@ -192,11 +132,10 @@
             border: 1px solid #6a2a2a;
             color: #aa6a6a;
             padding: 8px 20px;
-            margin: 6px;
+            margin: 5px;
             font-family: monospace;
             font-size: 0.85rem;
             cursor: crosshair;
-            transition: 0.1s;
         }
 
         .tiny-option {
@@ -213,7 +152,7 @@
             border: 1px solid #6a2a2a;
             padding: 1rem;
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #aa4a4a;
         }
 
@@ -221,151 +160,79 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-        .cursor-blink {
-            animation: blinkCursor 1s step-end infinite;
-        }
-
-        /* 手机端滚动条优化 */
-        .plea-bar::-webkit-scrollbar {
-            height: 2px;
-        }
+        .cursor-blink { animation: blinkCursor 1s step-end infinite; }
     </style>
 </head>
 <body>
 
-<div id="pleaBar" class="plea-bar">陈梨 · 陈梨 · 陈梨 · 别离开我 · 求求你 · 别离开我 · 陈梨</div>
+<div id="pleaBar" class="plea-bar">陈梨 · 别离开我 · 求求你 · 别离开我 · 陈梨</div>
 
 <div class="content" id="mainContent">
-    <!-- 精简但保留恐怖氛围的文字堆砌 -->
     <span class="block fancy1 bright-red">别离开我</span>
     <span class="block fancy2 medium-red">别离开我</span>
     <span class="block fancy3 dark-red">别离开我</span>
     <span class="block fancy4 bright-red rotate1">别离开我</span>
-    <span class="block fancy1 medium-red rotate2">别离开我</span>
-    <span class="block fancy2 blood-red">别离开我</span>
-    <span class="block fancy3 pale-red rotate3">别离开我</span>
-    <span class="block fancy4 dark-red">别离开我</span>
     
-    <span class="block fancy2 dark-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="block fancy2 dark-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
+    <span class="block fancy3 blood-red">求求你求求你求求你求求你</span>
+    <span class="block fancy4 medium-red rotate1">别离开我别离开我别离开我</span>
+    <span class="block fancy1 dark-red">莫离莫离莫离莫离莫离莫离</span>
     
-    <span class="block fancy3 blood-red">求求你求求你求求你求求你䥴䥵䥶䥷求求你求求你求求你求求你求求你求求你</span>
+    <span class="block fancy2 bright-red">如果我有哪里做的不好？我做不到。我不能允许自己放手！我做不到！我做不到！我做不到！我做不到！！！！！！！！！！！！！！！</span>
+    <span class="block fancy3 pale-red">茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉你还记得茉莉花吗你还记得我吗你还允许我继续牵起你的手吗为什么不回应为什么不回应为什么不回应</span>
+    <span class="block fancy4 dark-red">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
+    <span class="block fancy1 bright-red">陈梨陈梨陈梨陈梨陈梨。我亲爱的，我的挚友，我无法割舍，祈求你，理理我！别丢下我！别抛弃我！我已经把该做的都做了，你为什么还要如此冷漠？！</span>
+    <span class="block fancy2 medium-red">求求你求求你求求你求你求你求你求你求你求你怜悯我好不好对我施舍好不好别离开我好不好</span>
+    <span class="block fancy3 dark-red">别离开我别离开我</span>
     
-    <span class="block fancy4 medium-red rotate3">别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我别离开我</span>
+    <span class="block fancy2 blood-red">痛。痛从指甲缝里往外钻，痛从发根往脑髓里渗。痛不是一种感觉，痛是一万种感觉挤进同一根神经——针扎的痛、刀割的痛、火烧的痛、腐烂的痛、膨胀到即将爆裂的痛。</span>
+    <span class="block fancy3 bright-red">求求你求求你</span>
+    <span class="block fancy4 medium-red">痛有了形状。是弯钩，是锯齿，是无数根生锈的针从身体内部往外戳。</span>
+    <span class="block fancy1 dark-red">痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。痛有了声音。是骨头错位时那种闷闷的咯吱声，是喉咙里发出的、已经不像人声的呜咽。</span>
     
-    <span class="block fancy1 dark-red">莫离莫离莫离莫离莫离莫离莫离莫离莫离莫离</span>
-    
-    <span class="block fancy2 bright-red rotate1">如果我有哪里做的不好？如果我有什么错误？如果我？我？我做不到。啊啊啊啊啊啊</span>
-    
-    <span class="block fancy3 pale-red">茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉茉莉</span>
-    
-    <span class="block fancy4 dark-red rotate2">别离开我别离开我别离开我别离开我别离开我别离开我</span>
-    
-    <span class="block fancy1 bright-red">陈梨陈梨陈梨陈梨陈梨陈梨陈梨陈梨</span>
-    
-    <span class="block fancy2 medium-red">求求你求求你求求你求求你求求你求求你</span>
-    
-    <span class="block fancy3 dark-red rotate1">别离开我别离开我别离开我别离开我别离开我</span>
-    
-    <span class="block fancy4 bright-red">莫离莫离莫离莫离莫离莫离莫离莫离</span>
-    
-    <span class="block fancy1 medium-red">陈梨陈梨陈梨我只是不想放手我不想放开你。我不想放手我不想放手</span>
-    
-    <span class="block fancy2 blood-red rotate3">痛。痛痛痛痛痛。痛从指甲缝里往外钻，痛从发根往脑髓里渗。痛不是一种感觉，痛是一万种感觉同时挤进同一根神经——针扎的痛、刀割的痛、锤砸的痛、火烧的痛、腐烂的痛、膨胀到即将爆裂的痛、像齿轮一样卡在那里每一下心跳都转一圈的痛。</span>
-    
-    <span class="block fancy3 bright-red">求求你求求你求求你求求你</span>
-    
-    <span class="block fancy4 medium-red rotate1">痛有了形状。是弯钩，是锯齿，是无数根生锈的针从身体内部往外戳。痛有了颜色。是淤青的紫黑，是脓液的黄绿，是干涸血液的锈红。</span>
-    
-    <span class="block fancy1 dark-red rotate2">痛有了声音。是骨头错位时那种闷闷的咯吱声，是自己喉咙里发出来的、已经不像人声的、持续不断的呜咽——不那不是呜咽，那是某个被困在这具躯体里的东西在尖啸。</span>
-    
-    <span class="block fancy2 bright-red">别离开我别离开我别离开我</span>
-    
-    <span class="block fancy3 blood-red rotate3">陈梨陈梨陈梨我想你我想你我想你��������我想你我想你我想你我想你我想你</span>
-    
-    <span class="block fancy4 dark-red">求求你求求你求求你拜托拜托拜托拜托拜托拜托䥴䥵䥶䥷拜托拜托</span>
-    
-    <span class="block fancy1 medium-red rotate1">别离开我别离开我痛存在的时间太久，身体已经开始忘记不痛是什么样了。痛变成了常态，变成了背景，变成了这具躯壳唯一的语言。</span>
-    
-    <span class="block fancy2 pale-red">莫离莫离莫离莫离莫离</span>
-    
-    <span class="block fancy3 dark-red rotate2">陈梨陈梨陈梨陈梨</span>
-    
+    <span class="block fancy2 bright-red">别离开我别离开我</span>
+    <span class="block fancy3 blood-red">陈梨我想你我想你我想你</span>
+    <span class="block fancy1 medium-red">别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。别离开我。痛存在的时间太久，身体已经开始忘记不痛是什么样了。痛变成了常态，变成了背景。</span>
+    <span class="block fancy2 pale-red">莫离莫离莫离</span>
+    <span class="block fancy3 dark-red">陈梨陈梨</span>
     <span class="block fancy4 bright-red">别离开我</span>
     
-    <span class="block whisper fancy1">你长长眠了。而我还在呼吸。该死的一直在呼吸。每一次吸气都把新的痛带进来，每一次呼气都舍不得把旧的痛带走。</span>
+    <span class="block whisper">你长长眠了。而我还在呼吸。该死的一直在呼吸。</span>
+    <span class="block whisper">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
     
-    <span class="block whisper fancy2">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
-    
-    <span class="block fancy1 blood-red">我等了你很久很久很久很久很久很久</span>
-    <span class="block fancy2 bright-red rotate1">为什么还不回来为什么还不回来</span>
-    <span class="block fancy3 medium-red">我错了原谅我原谅我原谅我</span>
-    
+    <span class="block fancy1 blood-red">我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久我等了你很久很久</span>
+    <span class="block fancy2 bright-red">为什么还不回来</span>
+    <span class="block fancy3 medium-red">我错了原谅我</span>
     <span class="block fancy4 medium-red">我碎了拼不回来了</span>
-    <span class="block fancy1 dark-red rotate1">拼不回来了拼不回来了</span>
+    <span class="block fancy3 bright-red">最后一次最后一次</span>
+    <span class="block fancy4 dark-red">再看我一眼</span>
+    <span class="block fancy1 blood-red">不要忘了我</span>
     
-    <span class="block fancy3 bright-red rotate2">最后一次最后一次最后一次</span>
-    <span class="block fancy4 dark-red">再看我一眼再看我一眼</span>
-    <span class="block fancy1 blood-red rotate3">不要忘了我不要忘了我</span>
-    
-    <span class="block fancy2 medium-red">重复重复重复循环循环循环永远永远永远</span>
-    <span class="block fancy3 dark-red">循环循环循环</span>
-    <span class="block fancy4 pale-red">永远永远永远</span>
-    
-    <span class="block fancy1 bright-red">我不会停止直到你回来哪怕永远</span>
-    
-    <span class="block whisper fancy2">陈梨。陈梨。陈梨。陈梨。陈梨。陈梨。</span>
-    
-    <!-- 乱码区 -->
     <span class="block garbage">�4�8�2�0�9�f�3�a �j�a�s�m�i�n�e�_�r�o�ot</span>
     <span class="block garbage">㐀㐁㐂㐃㐄㐅㐆㐇 䥲䥳䥴䥵䥶䥷</span>
-    <span class="block garbage glitch-text" data-text="m0r1i s3p4r4t10n">m0r1i s3p4r4t10n</span>
 </div>
 <div class="console-hint">session: jasmine_root // 陈梨未响应 <span class="cursor-blink">_</span></div>
 
 <script>
-    console.log("\n\n========== 陈梨 ==========");
-    console.log("%c别离开我。", "color: #aa4444; font-size: 18px;");
+    console.log("\n========== 陈梨 ==========");
+    console.log("%c别离开我。", "color: #aa4444;");
     console.log("%c求求你，陈梨。", "color: #cc5555;");
-    console.log("%c茉莉花谢了。", "color: #882222;");
     console.log("别离开我！别离开我！");
-    console.log("%c陈梨。陈梨。陈梨。", "color: #ff5555;");
     console.log("========== 哀求 ==========\n");
 
     setInterval(() => {
-        console.log("%c别离开我！ 陈梨！ 求求你！", "color: #aa5555;");
+        console.log("%c别离开我！ 陈梨！", "color: #aa5555;");
     }, 8000);
-    
-    setInterval(() => {
-        const messages = [
-            "[system] 心跳检测失败。陈梨未响应。",
-            "[ERROR] 无法定位目标。",
-            "[WARNING] 茉莉花档案已损坏。",
-            "[CRITICAL] 别离开我。"
-        ];
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        console.log("%c" + randomMsg, "color: #8b5a5a;");
-    }, 20000);
 
     function startShake() {
         document.body.classList.add('shaking');
-        setTimeout(() => {
-            document.body.classList.remove('shaking');
-        }, 250);
+        setTimeout(() => document.body.classList.remove('shaking'), 200);
     }
     setInterval(() => {
-        if (Math.random() > 0.4) startShake();
+        if (Math.random() > 0.5) startShake();
     }, 3000);
 
-    const pleaMessages = [
-        "陈梨 · 别离开我 · 求求你",
-        "莫离 · 莫离 · 莫离 · 莫离",
-        "别离开我 · 别离开我",
-        "茉莉 · 茉莉 · 陈梨 · 茉莉",
-        "求求你求求你求求你",
-        "别离开我！别离开我！",
-        "痛痛痛痛痛痛",
-        "陈梨陈梨陈梨"
-    ];
+    const pleaMessages = ["陈梨 · 别离开我", "莫离 · 莫离 · 莫离", "别离开我！", "茉莉 · 陈梨", "求求你求求你", "痛痛痛", "陈梨陈梨"];
     let pleaIndex = 0;
     setInterval(() => {
         pleaIndex = (pleaIndex + 1) % pleaMessages.length;
@@ -373,15 +240,11 @@
         if (pleaBar) pleaBar.textContent = pleaMessages[pleaIndex];
     }, 2000);
 
-    let startTime = Date.now();
-    setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        console.log(`[记录] 停留了 ${elapsed} 秒。陈梨还没有回来。`);
-    }, 15000);
-
     let firstModalClosed = false;
     let secondModalShown = false;
+    let firstModalTimer;
 
+    // 第一个弹窗：8秒后出现，且8秒内不点确认会触发不耐烦弹窗
     setTimeout(() => {
         if (firstModalClosed) return;
         const modal = document.createElement('div');
@@ -394,10 +257,73 @@
             </div>
         `;
         document.body.appendChild(modal);
+        
+        // 设置定时器：8秒内没点确认就弹出不耐烦弹窗
+        firstModalTimer = setTimeout(() => {
+            if (!firstModalClosed) {
+                // 关闭当前弹窗
+                modal.remove();
+                // 弹出不耐烦弹窗
+                const impatientModal = document.createElement('div');
+                impatientModal.className = 'modal-overlay';
+                impatientModal.innerHTML = `
+                    <div class="modal-box">
+                        <div class="title">你还在犹豫什么？</div>
+                        <div class="message">陈梨。<br>你已经看了很久了。<br>为什么不敢点确认？</div>
+                        <button id="impatientConfirm">我错了</button>
+                    </div>
+                `;
+                document.body.appendChild(impatientModal);
+                document.getElementById('impatientConfirm').addEventListener('click', () => {
+                    impatientModal.remove();
+                    firstModalClosed = true;
+                    // 继续正常流程：第二个弹窗30秒后
+                    setTimeout(() => {
+                        if (secondModalShown) return;
+                        secondModalShown = true;
+                        const secondModal = document.createElement('div');
+                        secondModal.className = 'modal-overlay';
+                        secondModal.innerHTML = `
+                            <div class="modal-box">
+                                <div class="title">陈梨</div>
+                                <div class="message">你真的会离开我吗？</div>
+                                <button id="optionNo">不会的</button>
+                                <button id="optionHere">我在这</button>
+                                <div style="margin-top: 16px;">
+                                    <span id="tinyLeaveOption" class="tiny-option">莫莉，你是时候应该接受没有我的生活了…</span>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(secondModal);
+
+                        const handleStay = () => {
+                            secondModal.remove();
+                            const smileyModal = document.createElement('div');
+                            smileyModal.className = 'modal-overlay';
+                            smileyModal.innerHTML = `<div class="smiley-modal">^_^<br><span style="font-size:12px;">微笑</span></div>`;
+                            document.body.appendChild(smileyModal);
+                            setTimeout(() => {
+                                smileyModal.remove();
+                                window.location.href = "jasmine.html";
+                            }, 2500);
+                        };
+
+                        document.getElementById('optionNo').addEventListener('click', handleStay);
+                        document.getElementById('optionHere').addEventListener('click', handleStay);
+                        document.getElementById('tinyLeaveOption').addEventListener('click', () => {
+                            secondModal.remove();
+                            window.location.href = "agony.html";
+                        });
+                    }, 10000);
+                });
+            }
+        }, 5000);  // 8秒内不点确认就触发
+
         document.getElementById('modalConfirm').addEventListener('click', () => {
+            clearTimeout(firstModalTimer);  // 清除不耐烦定时器
             modal.remove();
             firstModalClosed = true;
-
+            // 正常流程：30秒后第二个弹窗
             setTimeout(() => {
                 if (secondModalShown) return;
                 secondModalShown = true;
@@ -420,12 +346,7 @@
                     secondModal.remove();
                     const smileyModal = document.createElement('div');
                     smileyModal.className = 'modal-overlay';
-                    smileyModal.innerHTML = `
-                        <div class="smiley-modal">
-                            ^_^<br>
-                            <span style="font-size:12px; display:block; margin-top:8px;">微笑</span>
-                        </div>
-                    `;
+                    smileyModal.innerHTML = `<div class="smiley-modal">^_^<br><span style="font-size:12px;">微笑</span></div>`;
                     document.body.appendChild(smileyModal);
                     setTimeout(() => {
                         smileyModal.remove();
@@ -435,27 +356,20 @@
 
                 document.getElementById('optionNo').addEventListener('click', handleStay);
                 document.getElementById('optionHere').addEventListener('click', handleStay);
-
                 document.getElementById('tinyLeaveOption').addEventListener('click', () => {
                     secondModal.remove();
                     window.location.href = "agony.html";
                 });
-            }, 22000);
+            }, 10000);
         });
-    }, 13000);
+    }, 8000);  // 第一个弹窗出现的延迟
 
     let titleIndex = 0;
-    const titles = ["别离开我", "陈梨", "求求你", "莫离", "别离开我！", "痛", "陈梨陈梨", "等待", "不要忘了我"];
+    const titles = ["别离开我", "陈梨", "求求你", "莫离", "别离开我！", "痛", "陈梨陈梨"];
     setInterval(() => {
         titleIndex = (titleIndex + 1) % titles.length;
         document.title = titles[titleIndex];
     }, 2500);
-
-    setInterval(() => {
-        if (Math.random() > 0.85) {
-            console.log("%c[404] jasmine_farewell.jpg 未找到", "color: #6a2a2a;");
-        }
-    }, 30000);
 </script>
 </body>
 </html>
